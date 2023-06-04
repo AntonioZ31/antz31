@@ -16,8 +16,8 @@
       ],
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "b4bb35e2c074b4b9710419a9baa4283ce4a02f27d5b81bb8a714b576e5c2df7a",
-      "iso_url": "http://mirror.linux-ia64.org/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-20230209-boot.iso",
+      "iso_checksum": "0e8cc21e3330f932a7a1ae28b8fb8cfbf1d1e667fa676ebf2f786b95383c0591",
+      "iso_url": "http://mirror.corbina.net/pub/Linux/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-latest-boot.iso",
       "name": "{{user `image_name`}}",
       "output_directory": "builds",
       "shutdown_command": "sudo -S /sbin/halt -h -p",
@@ -25,22 +25,13 @@
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_pty": true,
-      "ssh_timeout": "20m",
+      "ssh_timeout": "30m",
       "ssh_username": "vagrant",
       "type": "virtualbox-iso",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1024"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
+        ["modifyvm", "{{.Name}}", "--memory", "1024"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"],
+        ["modifyvm", "{{.Name}}", "--natpf1", "guestssh,tcp,,2222,,22"]
       ],
       "vm_name": "packer-centos-vm"
     }
@@ -48,14 +39,15 @@
   "post-processors": [
     {
       "compression_level": "7",
-      "output": "centos-{{user`artifact_version`}}-kernel-5-x86_64-Minimal.box",
+      "output": "centos-{{user `artifact_version`}}-kernel-6-x86_64-Minimal.box",
       "type": "vagrant"
     }
   ],
   "provisioners": [
     {
-      "execute_command": "{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | sudo -S -E bash '{{.Path}}'",
       "expect_disconnect": true,
+      "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -h 0",
       "override": {
         "{{user `image_name`}}": {
           "scripts": [
@@ -70,7 +62,7 @@
     }
   ],
   "variables": {
-    "artifact_description": "CentOS Stream 8 with kernel 5.x",
+    "artifact_description": "CentOS Stream 8 with kernel 6.x",
     "artifact_version": "8",
     "image_name": "centos-8"
   }
