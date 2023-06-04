@@ -83,11 +83,36 @@ packer/
 ```
 Исправляем опечатки в файле centos.json, изменяем способ пробрасывания пароля sudo в разделе provisioners, изменив значение execute_command. Изменяем ssh_timeout до 30 минут.
 
-Находим в сети репозитории с CentOS Stream 8, заменяем в файле centos .json контрольную сумму и URL до iso образа.
+Находим в сети репозиторий с CentOS Stream 8, заменяем в файле centos .json контрольную сумму и URL до iso образа.
 
 Заменяем содержимое файла stage-1-kernel-update.sh, т.е. то что в методичке заменяем на то, что получили в первом пункте задания.
+
+Заменяем в обоих скриптах команду grub2-set-default 0 на echo 'vagrant' | sudo -S -E bash grub2-set-default 0
 
 В разделе vboxmanage прописываем команду modifyvm с параметром --natpf1, т.к. у меня очень странный баг с VirtualBox, из-за которого при попытке собрать образ с помощью Packer версия VirtualBox каждый раз откатывалась до 6.1, хотя я устанавливал 7.0. В итоге не получилось воспользоваться параметром --nat-localhostreachable1. В итоге команда выглядела так:
 ```
 [ "modifyvm", "{{.Name}}", "--natpf1", "guestssh,tcp,,2222,,22" ]
 ```
+Из папки packer запускаем sudo packer build centos.json, дожидаемся окончания сборки.
+
+Импортируем Vagrant box в Vagrant:
+```
+vagrant box add centos8-kernel6 centos-8-kernel-6-x86_64-Minimal.box
+```
+
+Создаём Vagrantfile на основе образа centos8-kernel6: 
+```
+vagrant init centos8-kernel6
+```
+Подключаемся к виртуальной машине, проверяем, что ядро сразу обновлённое:
+```
+vagrant up 
+vagrant ssh 
+uname -msr
+```
+
+## 3) Загрузить Vagrant box в Vagrant Cloud
+
+Создаём аккаунт в Vagrant Cloud, включаем VPN, по инструкции загружаем получившийся образ. Первая версия образа с провайдером VirtualBox лежит по ссылке:
+
+https://app.vagrantup.com/antonyomsk/boxes/centos8-kernel6
