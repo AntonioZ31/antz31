@@ -14,7 +14,7 @@ sudo yum --enablerepo elrepo-kernel install kernel-ml -y
 
 # Обновление параметров GRUB
 grub2-mkconfig -o /boot/grub2/grub.cfg
-grub2-set-default 0
+echo 'vagrant' | sudo -S -E bash grub2-set-default 0
 echo "Grub update done."
 # Перезагрузка ВМ
 shutdown -r now
