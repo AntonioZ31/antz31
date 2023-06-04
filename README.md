@@ -9,7 +9,7 @@
 Используя Vagrant версии 2.3.6, запускаем виртуальную машину командой:
 
 ```
-vagrant up  
+vagrant up
 ```
 
 Отключаем VPN
@@ -21,7 +21,12 @@ vagrant ssh
 uname -msr
 #=> Linux 4.18.0-348.7.1.el8_5.x86_64 x86_64
 ```
-Обновление CentOS 8 из официального проекта не поддерживается с декабря 2021, поэтому меняем зеркала на vault.centos.org:
+Исправляем репозиторий, переключаясь на centos-stream-repos:
+```
+dnf --disablerepo '*' --enablerepo=extras swap centos-linux-repos centos-stream-repos
+dnf distro-sync
+```
+Сначала пробовал идти таким путём, но он скорее всего неграмотный, т.к. просто ссылается на архивный репозиторий:
 ```
 cd /etc/yum.repos.d/
 sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
@@ -42,7 +47,7 @@ sudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 ```
 Устанавливаем сам репозиторий для RHEL-8 и CentOS 8:
 ```
-sudo yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+sudo yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm -y
 ```
 Устанавливаем новое ядро из репозитория elrepo-kernel командой:
 ```
@@ -82,29 +87,7 @@ packer/
 
 Заменяем содержимое файла stage-1-kernel-update.sh, т.е. то что в методичке заменяем на то, что получили в первом пункте задания.
 
-В разделе vboxmanage прописываем команду modifyvm с параметром --natpf1, т.к. у меня очень странный баг с VirtualBox, из-за которого при попытке собрать образ с помощью Packer версия VirtualBox каждый раз откатывалась до 6.1, хотя я устанавливал 7.0. В итоге не получилось воспользоваться параметром --nat-localhostreachable1. В итоге команда выглядела так: 
+В разделе vboxmanage прописываем команду modifyvm с параметром --natpf1, т.к. у меня очень странный баг с VirtualBox, из-за которого при попытке собрать образ с помощью Packer версия VirtualBox каждый раз откатывалась до 6.1, хотя я устанавливал 7.0. В итоге не получилось воспользоваться параметром --nat-localhostreachable1. В итоге команда выглядела так:
 ```
 [ "modifyvm", "{{.Name}}", "--natpf1", "guestssh,tcp,,2222,,22" ]
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
