@@ -36,7 +36,55 @@ sudo yum update
 sudo shutdown -r now
 vagrant ssh
 ```
-Устанавливаем репозиторий ElRepo, где хранится последняя версия ядра:
+Устанавливаем репозиторий ElRepo, где хранится последняя версия ядра. Импортируем ключ репозитория:
 ```
-rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+sudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 ```
+Устанавливаем сам репозиторий для RHEL-8 и CentOS 8:
+```
+sudo yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+```
+Устанавливаем новое ядро из репозитория elrepo-kernel командой:
+```
+sudo yum --enablerepo elrepo-kernel install kernel-ml -y
+```
+Меняем конфиг GRUB:
+```
+vi /etc/default/grub
+GRUB_DEFAULT=0
+```
+Ребутаем машину, снова подключаемся:
+```
+reboot
+vagrant ssh
+```
+Проверяем версию ядра:
+```
+uname -msr
+#=> Linux 6.3.5-1.el8.elrepo.x86_64 x86_64
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
