@@ -23,5 +23,5 @@ history -c
 
 rm -rf /run/log/journal/*
 sync
-grub2-set-default 0
+echo 'vagrant' | sudo -S -E bash grub2-set-default 0
 echo "###   Hi from second stage" >> /boot/grub2/grub.cfg
