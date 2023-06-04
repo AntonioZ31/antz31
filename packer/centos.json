@@ -47,7 +47,6 @@
     {
       "execute_command": "echo 'vagrant' | sudo -S -E bash '{{.Path}}'",
       "expect_disconnect": true,
-      "shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -h 0",
       "override": {
         "{{user `image_name`}}": {
           "scripts": [
