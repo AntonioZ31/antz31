@@ -67,7 +67,7 @@ uname -msr
 ## 2) Создать Vagrant box c помощью Packer
 
 Создаём следующую структуру каталогов в проекте:
-
+```bash
 packer/
 ├── centos.json
 ├── http
@@ -75,7 +75,7 @@ packer/
 ├── scripts
 │   ├── stage-1-kernel-update.sh
 │   └── stage-2-clean.sh
-
+```
 Исправляем опечатки в файле centos.json, изменяем способ пробрасывания пароля sudo в разделе provisioners, изменив значение execute_command. Изменяем ssh_timeout до 30 минут.
 
 Находим в сети репозитории с CentOS Stream 8, заменяем в файле centos .json контрольную сумму и URL до iso образа.
