@@ -1,0 +1,786 @@
+Script started on Sat 01 Jul 2023 04:20:01 PM UTC
+[vagrant@lvm ~]$ sudo -i
+[root@lvm ~]# lsblk
+NAME                    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                       8:0    0   40G  0 disk 
+├─sda1                    8:1    0    1M  0 part 
+├─sda2                    8:2    0    1G  0 part /boot
+└─sda3                    8:3    0   39G  0 part 
+  ├─VolGroup00-LogVol00 253:0    0 37.5G  0 lvm  /
+  └─VolGroup00-LogVol01 253:1    0  1.5G  0 lvm  [SWAP]
+sdb                       8:16   0   10G  0 disk 
+├─otus-test             253:2    0    8G  0 lvm  /data
+└─otus-small            253:3    0  100M  0 lvm  
+sdc                       8:32   0    2G  0 disk 
+sdd                       8:48   0    1G  0 disk 
+sde                       8:64   0    1G  0 disk 
+[root@lvm ~]# pvcreate /dev/sdb
+  Can't open /dev/sdb exclusively.  Mounted filesystem?
+[root@lvm ~]# lvmdiscscan
+-bash: lvmdiscscan: command not found
+[root@lvm ~]# lvmdiskscan
+  /dev/VolGroup00/LogVol00 [     <37.47 GiB] 
+  /dev/VolGroup00/LogVol01 [       1.50 GiB] 
+  /dev/sda2                [       1.00 GiB] 
+  /dev/otus/test           [      <8.00 GiB] 
+  /dev/sda3                [     <39.00 GiB] LVM physical volume
+  /dev/otus/small          [     100.00 MiB] 
+  /dev/sdb                 [      10.00 GiB] LVM physical volume
+  /dev/sdc                 [       2.00 GiB] 
+  /dev/sdd                 [       1.00 GiB] 
+  /dev/sde                 [       1.00 GiB] 
+  5 disks
+  3 partitions
+  1 LVM physical volume whole disk
+  1 LVM physical volume
+[root@lvm ~]# pvs
+  PV         VG         Fmt  Attr PSize   PFree
+  /dev/sda3  VolGroup00 lvm2 a--  <38.97g    0 
+  /dev/sdb   otus       lvm2 a--  <10.00g 1.90g
+[root@lvm ~]# vgreduce otus /dev/sdb
+  Physical volume "/dev/sdb" still in use
+[root@lvm ~]# lsof
+-bash: lsof: command not found
+[root@lvm ~]# fuser
+-bash: fuser: command not found
+[root@lvm ~]# sudo lvremove otus-test
+  Volume group "otus-test" not found
+  Cannot process volume group otus-test
+[root@lvm ~]# sudo lvremove otus otus-test
+  Logical volume otus/test contains a filesystem in use.
+Do you really want to remove active logical volume otus/small? [y/n]: n
+  Logical volume otus/small not removed.
+  Volume group "otus-test" not found
+  Cannot process volume group otus-test
+[root@lvm ~]# sudo umount /data
+[root@lvm ~]# sudo lvremove otus otus-test
+Do you really want to remove active logical volume otus/test? [y/n]: y
+  Logical volume "test" successfully removed
+Do you really want to remove active logical volume otus/small? [y/n]: y
+  Logical volume "small" successfully removed
+  Volume group "otus-test" not found
+  Cannot process volume group otus-test
+[root@lvm ~]# lsblk
+NAME                    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                       8:0    0   40G  0 disk 
+├─sda1                    8:1    0    1M  0 part 
+├─sda2                    8:2    0    1G  0 part /boot
+└─sda3                    8:3    0   39G  0 part 
+  ├─VolGroup00-LogVol00 253:0    0 37.5G  0 lvm  /
+  └─VolGroup00-LogVol01 253:1    0  1.5G  0 lvm  [SWAP]
+sdb                       8:16   0   10G  0 disk 
+sdc                       8:32   0    2G  0 disk 
+sdd                       8:48   0    1G  0 disk 
+sde                       8:64   0    1G  0 disk 
+[root@lvm ~]# yum install xfsdump
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrors.xtom.nl
+ * extras: mirrors.xtom.nl
+ * updates: mirror.proserve.nl
+Resolving Dependencies
+--> Running transaction check
+---> Package xfsdump.x86_64 0:3.1.7-3.el7_9 will be installed
+--> Processing Dependency: attr >= 2.0.0 for package: xfsdump-3.1.7-3.el7_9.x86_64
+--> Running transaction check
+---> Package attr.x86_64 0:2.4.46-13.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=====================================================================================================
+ Package               Arch                 Version                      Repository             Size
+=====================================================================================================
+Installing:
+ xfsdump               x86_64               3.1.7-3.el7_9                updates               309 k
+Installing for dependencies:
+ attr                  x86_64               2.4.46-13.el7                base                   66 k
+
+Transaction Summary
+=====================================================================================================
+Install  1 Package (+1 Dependent package)
+
+Total download size: 374 k
+Installed size: 1.1 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/2): attr-2.4.46-13.el7.x86_64.rpm                                          |  66 kB  00:00:01     
+(2/2): xfsdump-3.1.7-3.el7_9.x86_64.rpm                                       | 309 kB  00:00:01     
+-----------------------------------------------------------------------------------------------------
+Total                                                                238 kB/s | 374 kB  00:00:01     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : attr-2.4.46-13.el7.x86_64                                                         1/2 
+  Installing : xfsdump-3.1.7-3.el7_9.x86_64                                                      2/2 
+  Verifying  : attr-2.4.46-13.el7.x86_64                                                         1/2 
+  Verifying  : xfsdump-3.1.7-3.el7_9.x86_64                                                      2/2 
+
+Installed:
+  xfsdump.x86_64 0:3.1.7-3.el7_9                                                                     
+
+Dependency Installed:
+  attr.x86_64 0:2.4.46-13.el7                                                                        
+
+Complete!
+[root@lvm ~]# pvcreate /dev/sdb
+  Can't initialize physical volume "/dev/sdb" of volume group "otus" without -ff
+  /dev/sdb: physical volume not initialized.
+[root@lvm ~]# pvs
+  PV         VG         Fmt  Attr PSize   PFree  
+  /dev/sda3  VolGroup00 lvm2 a--  <38.97g      0 
+  /dev/sdb   otus       lvm2 a--  <10.00g <10.00g
+[root@lvm ~]# vgreduce otus /dev/sdb
+  Can't remove final physical volume "/dev/sdb" from volume group "otus"
+[root@lvm ~]# vgremove otus
+  Volume group "otus" successfully removed
+[root@lvm ~]# pvs
+  PV         VG         Fmt  Attr PSize   PFree 
+  /dev/sda3  VolGroup00 lvm2 a--  <38.97g     0 
+  /dev/sdb              lvm2
+
+Script started on 2023-07-02 23:26:57+06:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="167" LINES="46"]
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrant ssh
+[?2004lLast login: Sat Jul  1 16:02:42 2023 from 10.0.2.2
+]0;vagrant@lvm:~[?1034h[vagrant@lvm ~]$ exitlsblk[1Pexitlsblk
+NAME                   MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                       8:0    0   40G  0 disk 
+├─sda1                    8:1    0    1M  0 part 
+├─sda2                    8:2    0    1G  0 part /boot
+└─sda3                    8:3    0   39G  0 part 
+  ├─VolGroup00-LogVol01 253:1    0  1.5G  0 lvm  [SWAP]
+  └─VolGroup00-LogVol00 253:2    0 37.5G  0 lvm  
+sdb                       8:16   0   10G  0 disk 
+└─vg_root-lv_root       253:0    0   10G  0 lvm  /
+sdc                       8:32   0    2G  0 disk 
+sdd                       8:48   0    1G  0 disk 
+sde                       8:64   0    1G  0 disk 
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo i[K-i
+]0;root@lvm:~[?1034h[root@lvm ~]# [K[root@lvm ~]# [K[root@lvm ~]# lvremove /dev/VolGroup00/:p[K[KLg[KogVol00
+Do you really want to remove active logical volume VolGroup00/LogVol00? [y/n]: y
+  Logical volume "LogVol00" successfully removed
+]0;root@lvm:~[root@lvm ~]# lvcreate -n VolGroup00/LogVol00 0[K-L 8G .de[K[K[Kd/e[K[K[K/dev/VolGroup99[K[K00
+WARNING: xfs signature detected on /dev/VolGroup00/LogVol00 at offset 0. Wipe it? [y/n]: y
+  Wiping xfs signature on /dev/VolGroup00/LogVol00.
+  Logical volume "LogVol00" created.
+]0;root@lvm:~[root@lvm ~]# mfk[K[Kkfs.xf.s[K[Ks /dev/VolGroup00/LogVol00
+meta-data=/dev/VolGroup00/LogVol00 isize=512    agcount=4, agsize=524288 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=2097152, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+]0;root@lvm:~[root@lvm ~]# moi[Kunt /dev/VolGroup00/:[KLogv[KVol00 /mnt
+]0;root@lvm:~[root@lvm ~]# xfsdump -j[KJ -[K[K[K[K[K[K[K[K[K[K[K[Kxfsdump -J - /dev/vg_root/lv_root | xfsrestore -J - /mnt [K
+xfsdump: using file dump (drive_simple) strategy
+xfsdump: version 3.1.7 (dump format 3.0)
+xfsdump: level 0 dump of lvm:/
+xfsdump: dump date: Sun Jul  2 17:33:16 2023
+xfsdump: session id: 7a56f455-70aa-4d8e-b746-b0995d19bbf4
+xfsdump: session label: ""
+xfsrestore: using file dump (drive_simple) strategy
+xfsrestore: version 3.1.7 (dump format 3.0)
+xfsrestore: searching media for dump
+xfsdump: ino map phase 1: constructing initial dump list
+xfsdump: ino map phase 2: skipping (no pruning necessary)
+xfsdump: ino map phase 3: skipping (only one dump stream)
+xfsdump: ino map construction complete
+xfsdump: estimated dump size: 917702528 bytes
+xfsdump: creating dump session media file 0 (media 0, file 0)
+xfsdump: dumping ino map
+xfsdump: dumping directories
+xfsrestore: examining media file 0
+xfsrestore: dump description: 
+xfsrestore: hostname: lvm
+xfsrestore: mount point: /
+xfsrestore: volume: /dev/mapper/vg_root-lv_root
+xfsrestore: session time: Sun Jul  2 17:33:16 2023
+xfsrestore: level: 0
+xfsrestore: session label: ""
+xfsrestore: media label: ""
+xfsrestore: file system id: 0ae8e704-2304-4ecc-9478-9bbfbad3208f
+xfsrestore: session id: 7a56f455-70aa-4d8e-b746-b0995d19bbf4
+xfsrestore: media id: 061153e1-2c3e-4870-b7ed-26f4e38fd515
+xfsrestore: searching media for directory dump
+xfsrestore: reading directories
+xfsdump: dumping non-directory files
+xfsrestore: 3140 directories and 26921 entries processed
+xfsrestore: directory post-processing
+xfsrestore: restoring non-directory files
+xfsdump: ending media file
+xfsdump: media file size 890001016 bytes
+xfsdump: dump size (non-dir files) : 874828800 bytes
+xfsdump: dump complete: 16 seconds elapsed
+xfsdump: Dump Status: SUCCESS
+xfsrestore: restore complete: 16 seconds elapsed
+xfsrestore: Restore Status: SUCCESS
+]0;root@lvm:~[root@lvm ~]# xfsdump -J - /dev/vg_root/lv_root | xfsrestore -J - /mnt^C
+]0;root@lvm:~[root@lvm ~]# for i in /proc/ /sys/ /dev/ /run/ /boot/; do mount --bind $i /mnt/$i; done
+]0;root@lvm:~[root@lvm ~]# pwd
+/root
+]0;root@lvm:~[root@lvm ~]# chroot /mnt/
+]0;root@lvm:/[?1034h[root@lvm /]# grub2-mkconfig -o /boot/grub2/grub.cfg
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-3.10.0-862.2.3.el7.x86_64
+Found initrd image: /boot/initramfs-3.10.0-862.2.3.el7.x86_64.img
+done
+]0;root@lvm:/[root@lvm /]# cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g;   s/.img//g"` --force; done
+Executing: /sbin/dracut -v initramfs-3.10.0-862.2.3.el7.x86_64.img 3.10.0-862.2.3.el7.x86_64 --force
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+dracut module 'dmsquash-live-ntfs' will not be installed, because command 'ntfs-3g' could not be found!
+dracut module 'multipath' will not be installed, because command 'multipath' could not be found!
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+dracut module 'dmsquash-live-ntfs' will not be installed, because command 'ntfs-3g' could not be found!
+dracut module 'multipath' will not be installed, because command 'multipath' could not be found!
+*** Including module: bash ***
+*** Including module: nss-softokn ***
+*** Including module: i18n ***
+*** Including module: drm ***
+*** Including module: plymouth ***
+*** Including module: dm ***
+Skipping udev rule: 64-device-mapper.rules
+Skipping udev rule: 60-persistent-storage-dm.rules
+Skipping udev rule: 55-dm.rules
+*** Including module: kernel-modules ***
+Omitting driver floppy
+*** Including module: lvm ***
+Skipping udev rule: 64-device-mapper.rules
+Skipping udev rule: 56-lvm.rules
+Skipping udev rule: 60-persistent-storage-lvm.rules
+*** Including module: qemu ***
+*** Including module: resume ***
+*** Including module: rootfs-block ***
+*** Including module: terminfo ***
+*** Including module: udev-rules ***
+Skipping udev rule: 40-redhat-cpu-hotplug.rules
+Skipping udev rule: 91-permissions.rules
+*** Including module: biosdevname ***
+*** Including module: systemd ***
+*** Including module: usrmount ***
+*** Including module: base ***
+*** Including module: fs-lib ***
+*** Including module: shutdown ***
+*** Including modules done ***
+*** Installing kernel module dependencies and firmware ***
+*** Installing kernel module dependencies and firmware done ***
+*** Resolving executable dependencies ***
+*** Resolving executable dependencies done***
+*** Hardlinking files ***
+*** Hardlinking files done ***
+*** Stripping files ***
+*** Stripping files done ***
+*** Generating early-microcode cpio image contents ***
+*** No early-microcode cpio image needed ***
+*** Store current command line parameters ***
+*** Creating image file ***
+*** Creating image file done ***
+*** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***
+]0;root@lvm:/boot[root@lvm boot]# pvcreate .[K/dev/sdc de[K[K/dev/sdd
+  Physical volume "/dev/sdc" successfully created.
+  Physical volume "/dev/sdd" successfully created.
+]0;root@lvm:/boot[root@lvm boot]# vgcreate vg-[K_Var[K[K[Kvar /dev/sdc d[K.[K/dev/sdd
+  Volume group "vg_var" successfully created
+]0;root@lvm:/boot[root@lvm boot]# lvcreate -L 950M -m1 -n lv_var vg_var
+  Rounding up size to full physical extent 952.00 MiB
+  Logical volume "lv_var" created.
+]0;root@lvm:/boot[root@lvm boot]# mf[Kkfs.ext4 /dev/vg_var/lv_var
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+60928 inodes, 243712 blocks
+12185 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=249561088
+8 block groups
+32768 blocks per group, 32768 fragments per group
+7616 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+Allocating group tables: 0/8   done                            
+Writing inode tables: 0/8   done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: 0/8   done
+
+]0;root@lvm:/boot[root@lvm boot]# mount /dev/vg_var/lv_var /mnt
+]0;root@lvm:/boot[root@lvm boot]# cp -aA[KR /var/* /mnt/ # rsync -avHPSAX /var/ /mnt/
+]0;root@lvm:/boot[root@lvm boot]# mkdir /tmp/oldvar && mv /var/* /tmp/oldvar
+]0;root@lvm:/boot[root@lvm boot]# mount /dev/vg_var/lv_var /var 
+]0;root@lvm:/boot[root@lvm boot]# echo "`blkid | grep var: | awk '{print $2}'` /var ext4 defaults 0 0" >> /etc/fstab
+]0;root@lvm:/boot[root@lvm boot]# lvremove /dev/vg_root/lv_root
+  Logical volume vg_root/lv_root contains a filesystem in use.
+]0;root@lvm:/boot[root@lvm boot]# REBOOT
+bash: REBOOT: command not found
+]0;root@lvm:/boot[root@lvm boot]# rebi=[K[Koot
+Running in chroot, ignoring request.
+]0;root@lvm:/boot[root@lvm boot]# exit
+]0;root@lvm:~[root@lvm ~]# reboot
+Connection to 127.0.0.1 closed by remote host.
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrant ssh
+[?2004lLast login: Sun Jul  2 17:27:27 2023 from 10.0.2.2
+]0;vagrant@lvm:~[?1034h[vagrant@lvm ~]$ pv [Krevmov[K[K[K[Kmove /de/[Kv/sdb
+  WARNING: Running as a non-root user. Functionality may be unavailable.
+  /run/lvm/lvmetad.socket: access failed: Permission denied
+  WARNING: Failed to connect to lvmetad. Falling back to device scanning.
+  /run/lock/lvm/P_orphans:aux: open failed: Permission denied
+  Can't get lock for orphan PVs.
+]0;vagrant@lvm:~[vagrant@lvm ~]$ pvremove /dev/sdb[1@s[1@u[1@d[1@o[1@ 
+  Can't open /dev/sdb exclusively.  Mounted filesystem?
+]0;vagrant@lvm:~[vagrant@lvm ~]$ ll mn[K[K/mnt
+total 0
+]0;vagrant@lvm:~[vagrant@lvm ~]$ ll /mntsudo pvremove /dev/sdb[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cexit[Klsblk[1Pexit[1Ppwdecho dasdasdxit[Kcho "fuck you"[8Phistory[2Pdf -h[Kmount | grep /datals[Ksudo mount /dev/otus/test /data/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Ksudo touch 1[5P[C[C[C[C[C[C[Cls[Kcd /datasudo mkfs.ext4 /dev/otus/test[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Psudo mkdir /datals[Ksudo mkdir /datamkfs.ext4 /dev/otus/test[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd /data[Kls[Ktouch 1[5@sudo [C[C[C[C[C[C[Cls[Kmount /dev/otus/test /data/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kmount | grep /datals[Ksudo mount /dev/otus/test /data/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kmount | grep /datadf[K -hhistoryecho "fuck you"xit[Kcho dasdasdpwd[Kexitlsblk[1Pexitpvremove /dev/sdb[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cll /mnt[K[Khistory | grep umount
+   61  history | grep [01;31m[Kumount[m[K
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lvremovvg[K[Ke v[K/dev/vg_root?[K/lv_rool[Kt
+  WARNING: Running as a non-root user. Functionality may be unavailable.
+  /run/lvm/lvmetad.socket: access failed: Permission denied
+  WARNING: Failed to connect to lvmetad. Falling back to device scanning.
+  /dev/mapper/control: open failed: Permission denied
+  Failure to communicate with kernel device-mapper driver.
+  Incompatible libdevmapper 1.02.146-RHEL7 (2018-01-22) and kernel driver (unknown version).
+  /run/lock/lvm/V_vg_root:aux: open failed: Permission denied
+  Can't get lock for vg_root
+  Cannot process volume group vg_root
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lvremove /dev/vg_root/lv_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@p[1@ 
+-bash: sudp: command not found
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudp lvremove /dev/vg_root/lv_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@\[1P[1P[1@i[1P[1@o
+Do you really want to remove active logical volume vg_root/lv_root? [y/n]: y
+  Logical volume "lv_root" successfully removed
+]0;vagrant@lvm:~[vagrant@lvm ~]$ vg r[K[Kremove /dev/s[Kvg_root
+  WARNING: Running as a non-root user. Functionality may be unavailable.
+  /run/lvm/lvmetad.socket: access failed: Permission denied
+  WARNING: Failed to connect to lvmetad. Falling back to device scanning.
+  /dev/mapper/control: open failed: Permission denied
+  Failure to communicate with kernel device-mapper driver.
+  Incompatible libdevmapper 1.02.146-RHEL7 (2018-01-22) and kernel driver (unknown version).
+  /run/lock/lvm/V_vg_root:aux: open failed: Permission denied
+  Can't get lock for vg_root
+  Cannot process volume group vg_root
+]0;vagrant@lvm:~[vagrant@lvm ~]$ vgremove /dev/vg_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+  Volume group "vg_root" successfully removed
+]0;vagrant@lvm:~[vagrant@lvm ~]$ pvremove /dev/sdb
+  WARNING: Running as a non-root user. Functionality may be unavailable.
+  /run/lvm/lvmetad.socket: access failed: Permission denied
+  WARNING: Failed to connect to lvmetad. Falling back to device scanning.
+  /run/lock/lvm/P_orphans:aux: open failed: Permission denied
+  Can't get lock for orphan PVs.
+]0;vagrant@lvm:~[vagrant@lvm ~]$ pvremove /dev/sdb[1@s[1@u[1@d[C[1@p[1@ [1P[1P[1@o[1@ 
+  Labels on physical volume "/dev/sdb" successfully wiped.
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo -i
+]0;root@lvm:~[?1034h[root@lvm ~]# pvs
+  PV         VG         Fmt  Attr PSize    PFree  
+  /dev/sda3  VolGroup00 lvm2 a--   <38.97g <29.47g
+  /dev/sdc   vg_var     lvm2 a--    <2.00g   1.06g
+  /dev/sdd   vg_var     lvm2 a--  1020.00m  64.00m
+]0;root@lvm:~[root@lvm ~]# s[Klsblk
+NAME                     MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                        8:0    0   40G  0 disk 
+├─sda1                     8:1    0    1M  0 part 
+├─sda2                     8:2    0    1G  0 part /boot
+└─sda3                     8:3    0   39G  0 part 
+  ├─VolGroup00-LogVol00  253:0    0    8G  0 lvm  /
+  └─VolGroup00-LogVol01  253:1    0  1.5G  0 lvm  [SWAP]
+sdb                        8:16   0   10G  0 disk 
+sdc                        8:32   0    2G  0 disk 
+├─vg_var-lv_var_rmeta_0  253:2    0    4M  0 lvm  
+│ └─vg_var-lv_var        253:6    0  952M  0 lvm  /var
+└─vg_var-lv_var_rimage_0 253:3    0  952M  0 lvm  
+  └─vg_var-lv_var        253:6    0  952M  0 lvm  /var
+sdd                        8:48   0    1G  0 disk 
+├─vg_var-lv_var_rmeta_1  253:4    0    4M  0 lvm  
+│ └─vg_var-lv_var        253:6    0  952M  0 lvm  /var
+└─vg_var-lv_var_rimage_1 253:5    0  952M  0 lvm  
+  └─vg_var-lv_var        253:6    0  952M  0 lvm  /var
+sde                        8:64   0    1G  0 disk 
+]0;root@lvm:~[root@lvm ~]# lvr[Kcreate -n LogVol_Home -:[KL 2G /dev/VolGroup00
+  Logical volume "LogVol_Home" created.
+]0;root@lvm:~[root@lvm ~]# ,kf[K[K[Kmkfs.xfs /dev/VolGroup00/LogVol_h[KHome
+meta-data=/dev/VolGroup00/LogVol_Home isize=512    agcount=4, agsize=131072 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=524288, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+]0;root@lvm:~[root@lvm ~]# mount /dev/VolGroup00/Lp[KogVol_h[KHome /mnt/
+]0;root@lvm:~[root@lvm ~]# cp -aR /home/* /mnt/
+]0;root@lvm:~[root@lvm ~]# ls /mnt
+[0m[38;5;27mvagrant[0m
+]0;root@lvm:~[root@lvm ~]# rm -rf /g[Khome/&*[K[K&[K&[K*
+]0;root@lvm:~[root@lvm ~]# umount /mnt
+]0;root@lvm:~[root@lvm ~]# umount /mntrm -rf /home/*[7Pls /mnt
+]0;root@lvm:~[root@lvm ~]# mount /dev/VolGrou[[Kp00/LogVol_Home /home/[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kls /home
+]0;root@lvm:~[root@lvm ~]# mount /dev/VolGroup00/LogVol_Home /home/
+]0;root@lvm:~[root@lvm ~]# mount /dev/VolGroup00/LogVol_Home /home/[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /home[K
+[0m[38;5;27mvagrant[0m
+]0;root@lvm:~[root@lvm ~]# echo "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fstab
+]0;root@lvm:~[root@lvm ~]# /home
+-bash: /home: Is a directory
+]0;root@lvm:~[root@lvm ~]# /homeecho "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fstab[C[C[C[C[C[C[C[C[C[C[C[C[C[C/home[K[Kreboot
+Error getting authority: Error initializing authority: Error calling StartServiceByName for org.freedesktop.PolicyKit1: Timeout was reached (g-io-error-quark, 24)
+Failed to start reboot.target: Connection timed out
+See system logs and 'systemctl status reboot.target' for details.
+]0;root@lvm:~[root@lvm ~]# echo "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fstab
+]0;root@lvm:~[root@lvm ~]# echo "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fstab[C[C[C[C[C[C[C[C[C[C[C[C[C[Creboot[K
+Error getting authority: Error initializing authority: Error calling StartServiceByName for org.freedesktop.PolicyKit1: Timeout was reached (g-io-error-quark, 24)
+Failed to start reboot.target: Connection timed out
+See system logs and 'systemctl status reboot.target' for details.
+]0;root@lvm:~[root@lvm ~]# rebootecho "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fstab[C[C[C[C[C[C[C[C[C[C[C[C[C[Creboot[Ksrebooturebootdreboot reboot[1Prebootoreboot reboot
+Error getting authority: Error initializing authority: Error calling StartServiceByName for org.freedesktop.PolicyKit1: Timeout was reached (g-io-error-quark, 24)
+Failed to start reboot.target: Connection timed out
+See system logs and 'systemctl status reboot.target' for details.
+]0;root@lvm:~[root@lvm ~]# logi[Kout
+]0;vagrant@lvm:~[vagrant@lvm ~]$ logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrant reload
+[?2004l[1m==> lvm: Attempting graceful shutdown of VM...[0m
+[1m==> lvm: Checking if box 'centos/7' version '1804.02' is up to date...[0m
+[1;33m==> lvm: There was a problem while downloading the metadata for your box
+==> lvm: to check for updates. This is not an error, since it is usually due
+==> lvm: to temporary network problems. This is just a warning. The problem
+==> lvm: encountered was:
+==> lvm: 
+==> lvm: The requested URL returned error: 404
+==> lvm: 
+==> lvm: If you want to check for box updates, verify your network connection
+==> lvm: is valid and try again.[0m
+[1m==> lvm: Clearing any previously set forwarded ports...[0m
+[1m==> lvm: Clearing any previously set network interfaces...[0m
+[1m==> lvm: Preparing network interfaces based on configuration...[0m
+[0m    lvm: Adapter 1: nat[0m
+[1m==> lvm: Forwarding ports...[0m
+[0m    lvm: 22 (guest) => 2222 (host) (adapter 1)[0m
+[1m==> lvm: Running 'pre-boot' VM customizations...[0m
+[1m==> lvm: Booting VM...[0m
+[1m==> lvm: Waiting for machine to boot. This may take a few minutes...[0m
+[0m    lvm: SSH address: 127.0.0.1:2222[0m
+[0m    lvm: SSH username: vagrant[0m
+[0m    lvm: SSH auth method: private key[0m
+[1m==> lvm: Machine booted and ready![0m
+[1m==> lvm: Checking for guest additions in VM...[0m
+[0m    lvm: No guest additions were detected on the base box for this VM! Guest
+    lvm: additions are required for forwarded ports, shared folders, host only
+    lvm: networking, and more. If SSH fails on this machine, please install
+    lvm: the guest additions and repackage the box to continue.
+    lvm: 
+    lvm: This is not an error message; everything may continue to work properly,
+    lvm: in which case you may ignore this message.[0m
+[1m==> lvm: Setting hostname...[0m
+[1m==> lvm: Rsyncing folder: /home/antonioz31/antz31/3/ => /vagrant[0m
+[1m==> lvm: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> lvm: flag to force provisioning. Provisioners marked to run always will still run.[0m
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrant ssh
+[?2004lLast login: Sat Jul  1 17:27:20 2023 from 10.0.2.2
+]0;vagrant@lvm:~[?1034h[vagrant@lvm ~]$ su[Kudo -i
+]0;root@lvm:~[?1034h[root@lvm ~]# lsblk
+NAME                       MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                          8:0    0   40G  0 disk 
+├─sda1                       8:1    0    1M  0 part 
+├─sda2                       8:2    0    1G  0 part /boot
+└─sda3                       8:3    0   39G  0 part 
+  ├─VolGroup00-LogVol00    253:0    0    8G  0 lvm  /
+  ├─VolGroup00-LogVol01    253:1    0  1.5G  0 lvm  [SWAP]
+  └─VolGroup00-LogVol_Home 253:2    0    2G  0 lvm  /home
+sdb                          8:16   0   10G  0 disk 
+sdc                          8:32   0    2G  0 disk 
+├─vg_var-lv_var_rmeta_0    253:3    0    4M  0 lvm  
+│ └─vg_var-lv_var          253:7    0  952M  0 lvm  /var
+└─vg_var-lv_var_rimage_0   253:4    0  952M  0 lvm  
+  └─vg_var-lv_var          253:7    0  952M  0 lvm  /var
+sdd                          8:48   0    1G  0 disk 
+├─vg_var-lv_var_rmeta_1    253:5    0    4M  0 lvm  
+│ └─vg_var-lv_var          253:7    0  952M  0 lvm  /var
+└─vg_var-lv_var_rimage_1   253:6    0  952M  0 lvm  
+  └─vg_var-lv_var          253:7    0  952M  0 lvm  /var
+sde                          8:64   0    1G  0 disk 
+]0;root@lvm:~[root@lvm ~]# cd /tmp
+]0;root@lvm:/tmp[root@lvm tmp]# touch /home/file{1..20}
+]0;root@lvm:/tmp[root@lvm tmp]# ls /home/
+file1   file11  file13  file15  file17  file19  file20  file4  file6  file8  [0m[38;5;27mvagrant[0m
+file10  file12  file14  file16  file18  file2   file3   file5  file7  file9
+]0;root@lvm:/tmp[root@lvm tmp]# lvcreate -L 100MB -s -n home_snap /dev/VolGroup00/LogVol_Home
+  Rounding up size to full physical extent 128.00 MiB
+  Logical volume "home_snap" created.
+]0;root@lvm:/tmp[root@lvm tmp]# rm -f /home/file{11..20}
+]0;root@lvm:/tmp[root@lvm tmp]# rm -f /home/file{11..20}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clvcreate -L 100MB -s -n home_snap /dev/VolGroup00/LogVol_Home[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cs /home/[K
+file1  file10  file2  file3  file4  file5  file6  file7  file8  file9  [0m[38;5;27mvagrant[0m
+]0;root@lvm:/tmp[root@lvm tmp]# umount /home
+umount: /home: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+]0;root@lvm:/tmp[root@lvm tmp]# umount /home
+umount: /home: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+]0;root@lvm:/tmp[root@lvm tmp]# ls -h[Kl /hp[Kome
+total 0
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file1
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file10
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file2
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file3
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file4
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file5
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file6
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file7
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file8
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file9
+drwx------. 3 vagrant vagrant 178 Jul  1 16:20 [0m[38;5;27mvagrant[0m
+]0;root@lvm:/tmp[root@lvm tmp]# ls -l /home[1@umount[C[C[C[C[C[C[3Pls /home/rm -f /home/file{11..20}umou[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kumound /home
+-bash: umound: command not found
+]0;root@lvm:/tmp[root@lvm tmp]# umound /home[1P[1P /homen /homet /home
+umount: /home: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+]0;root@lvm:/tmp[root@lvm tmp]# lsof h[K/hoe[Kme
+-bash: lsof: command not found
+]0;root@lvm:/tmp[root@lvm tmp]# yum install lsof
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.corbina.net
+ * updates: mirror.yandex.ru
+base                                                                          | 3.6 kB  00:00:00     
+extras                                                                        | 2.9 kB  00:00:00     
+updates                                                                       | 2.9 kB  00:00:00     
+Resolving Dependencies
+--> Running transaction check
+---> Package lsof.x86_64 0:4.87-6.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=====================================================================================================
+ Package              Arch                   Version                      Repository            Size
+=====================================================================================================
+Installing:
+ lsof                 x86_64                 4.87-6.el7                   base                 331 k
+
+Transaction Summary
+=====================================================================================================
+Install  1 Package
+
+Total download size: 331 k
+Installed size: 927 k
+Is this ok [y/d/N]: y
+Downloading packages:
+lsof-4.87-6.el7.x86_64.rpm                                                    | 331 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : lsof-4.87-6.el7.x86_64 [                                                        ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [###                                                     ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#######                                                 ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [########                                                ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#########                                               ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [###########                                             ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [###############                                         ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [###################                                     ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#####################                                   ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#########################                               ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#############################                           ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#################################                       ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [####################################                    ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#######################################                 ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [########################################                ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [############################################            ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [##############################################          ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#################################################       ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [####################################################    ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [#####################################################   ] 1/1  Installing : lsof-4.87-6.el7.x86_64 [####################################################### ] 1/1  Installing : lsof-4.87-6.el7.x86_64                                                            1/1 
+  Verifying  : lsof-4.87-6.el7.x86_64                                                            1/1 
+
+Installed:
+  lsof.x86_64 0:4.87-6.el7                                                                           
+
+Complete!
+]0;root@lvm:/tmp[root@lvm tmp]# lsof --help
+lsof: illegal option character: -
+lsof: -e not followed by a file system path: "lp"
+lsof 4.87
+ latest revision: ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/
+ latest FAQ: ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/FAQ
+ latest man page: ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/lsof_man
+ usage: [-?abhKlnNoOPRtUvVX] [+|-c c] [+|-d s] [+D D] [+|-f[gG]] [+|-e s]
+ [-F [f]] [-g [s]] [-i [i]] [+|-L [l]] [+m [m]] [+|-M] [-o [o]] [-p s]
+[+|-r [t]] [-s [p:s]] [-S [t]] [-T [t]] [-u s] [+|-w] [-x [fl]] [-Z [Z]] [--] [names]
+Defaults in parentheses; comma-separated set (s) items; dash-separated ranges.
+  -?|-h list help          -a AND selections (OR)     -b avoid kernel blocks
+  -c c  cmd c ^c /c/[bix]  +c w  COMMAND width (9)    +d s  dir s files
+  -d s  select by FD set   +D D  dir D tree *SLOW?*   +|-e s  exempt s *RISKY*
+  -i select IPv[46] files  -K list tasKs (threads)    -l list UID numbers
+  -n no host names         -N select NFS files        -o list file offset
+  -O no overhead *RISKY*   -P no port names           -R list paRent PID
+  -s list file size        -t terse listing           -T disable TCP/TPI info
+  -U select Unix socket    -v list version info       -V verbose search
+  +|-w  Warnings (+)       -X skip TCP&UDP* files     -Z Z  context [Z]
+  -- end option scan     
+  +f|-f  +filesystem or -file names     +|-f[gG] flaGs 
+  -F [f] select fields; -F? for help  
+  +|-L [l] list (+) suppress (-) link counts < l (0 = all; default = 0)
+                                        +m [m] use|create mount supplement
+  +|-M   portMap registration (-)       -o o   o 0t offset digits (8)
+  -p s   exclude(^)|select PIDs         -S [t] t second stat timeout (15)
+  -T qs TCP/TPI Q,St (s) info
+  -g [s] exclude(^)|select and print process group IDs
+  -i i   select by IPv[46] address: [46][proto][@host|addr][:svc_list|port_list]
+  +|-r [t[m<fmt>]] repeat every t seconds (15);  + until no files, - forever.
+       An optional suffix to t is m<fmt>; m must separate t from <fmt> and
+      <fmt> is an strftime(3) format for the marker line.
+  -s p:s  exclude(^)|select protocol (p = TCP|UDP) states by name(s).
+  -u s   exclude(^)|select login|UID set s
+  -x [fl] cross over +d|+D File systems or symbolic Links
+  names  select named files or files on named file systems
+Anyone can list all files; /dev warnings disabled; kernel ID check disabled.
+]0;root@lvm:/tmp[root@lvm tmp]# lsof | grep /home
+bash      2059      vagrant  cwd       DIR              253,2      178         67 [01;31m[K/home[m[K/vagrant
+sudo      2080         root  cwd       DIR              253,2      178         67 [01;31m[K/home[m[K/vagrant
+]0;root@lvm:/tmp[root@lvm tmp]# logout
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo umount h[K/home
+umount: /home: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+]0;vagrant@lvm:~[vagrant@lvm ~]$ umount /home[K[K[K[K[K[K[K[K[K[K[K[Klsof }[K|g[K gre[ /[K[K[Kp /home
+bash      2059      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2185      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+grep      2186      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2187      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lsof | grep /home
+bash      2059      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2188      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+grep      2189      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2190      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lsof | grep /home
+bash      2059      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2191      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+grep      2192      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2193      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+]0;vagrant@lvm:~[vagrant@lvm ~]$ umoun[K[K[K[K[Ksudo umount /home/vva[K[Kagrant
+umount: /home/vagrant: not mounted
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lsof -p 1[K2059
+COMMAND  PID    USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
+bash    2059 vagrant  cwd    DIR  253,2      178       67 /home/vagrant
+bash    2059 vagrant  rtd    DIR  253,0      263       64 /
+bash    2059 vagrant  txt    REG  253,0   964544  4457761 /usr/bin/bash
+bash    2059 vagrant  mem    REG  253,0    62184  4611043 /usr/lib64/libnss_files-2.17.so
+bash    2059 vagrant  mem    REG  253,0  3485296 12667946 /usr/lib/locale/locale-archive
+bash    2059 vagrant  mem    REG  253,0  2173512  4600753 /usr/lib64/libc-2.17.so
+bash    2059 vagrant  mem    REG  253,0    19776  4600759 /usr/lib64/libdl-2.17.so
+bash    2059 vagrant  mem    REG  253,0   174576  4611098 /usr/lib64/libtinfo.so.5.9
+bash    2059 vagrant  mem    REG  253,0   164240  4600746 /usr/lib64/ld-2.17.so
+bash    2059 vagrant  mem    REG  253,0    26254  4738329 /usr/lib64/gconv/gconv-modules.cache
+bash    2059 vagrant    0u   CHR  136,0      0t0        3 /dev/pts/0
+bash    2059 vagrant    1u   CHR  136,0      0t0        3 /dev/pts/0
+bash    2059 vagrant    2u   CHR  136,0      0t0        3 /dev/pts/0
+bash    2059 vagrant  255u   CHR  136,0      0t0        3 /dev/pts/0
+]0;vagrant@lvm:~[vagrant@lvm ~]$ л[Kkill --help
+-bash: kill: -help: invalid signal specification
+]0;vagrant@lvm:~[vagrant@lvm ~]$ kill --help
+-bash: kill: -help: invalid signal specification
+]0;vagrant@lvm:~[vagrant@lvm ~]$ kill -2191
+-bash: kill: 2191: invalid signal specification
+]0;vagrant@lvm:~[vagrant@lvm ~]$ kill -0[K9 ""2"1"8"1"[1P"[1P"9"1"
+-bash: kill: (2191) - No such process
+]0;vagrant@lvm:~[vagrant@lvm ~]$ kill -9 "2191"[4P2191-helplsof -p 2059sudo umount /home/vagrant[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[13Plsof -p 2059sudo umount /home/vagrant[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Plsof | grep /home
+bash      2059      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2199      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+grep      2200      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2201      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lsof | grep /home[3Pkill -9 "2191"[1P"0"[1P"0"[1P"-"[1P"9"
+-bash: kill: (2199) - No such process
+]0;vagrant@lvm:~[vagrant@lvm ~]$ kill -9 "2199"lsof | grep /home
+bash      2059      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2202      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+grep      2203      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2204      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lsof | grep /home[3Pkill -9 "2199"[1P"[1P"[1P"0"5"9"
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrqn[K[K[Kant [K[K[K[Krant ssh
+[?2004lLast login: Sun Jul  2 18:20:10 2023 from 10.0.2.2
+]0;vagrant@lvm:~[?1034h[vagrant@lvm ~]$ umount /home[1@s[C[1@u[1@d[1@o[1@ 
+umount: /home: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo umount /home[11Plogoutsudo -ipvremove /dev/sdb[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo vgremove /dev/vg_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo lvremove /dev/vg_root/lv_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Phistory | grep umount[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Pll /mntsudo pvremove /dev/sdb[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cll /mnt[Khistory | grep umount[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clvremove /dev/vg_root/lv_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Phistory | grep umount[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clvremove /dev/vg_root/lv_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudp [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Co[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[13Pvgremove /dev/vg_root[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9Ppvremove /dev/sdb[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-i[K[1Plogoutsudo umount /home[Ksudo umount /home[11Plogoutsudo -ipvremove /dev/sdb[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo vgremove /dev/vg_root[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Klsof | gre[ /[K[K[Kp h[K?[K/home
+bash      2209      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2233      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+grep      2234      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+lsof      2235      vagrant  cwd       DIR  253,2      178       67 [01;31m[K/home[m[K/vagrant
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo -i
+]0;root@lvm:~[?1034h[root@lvm ~]# logoutsof | grep /home[6P--help[K[K[K[K[K[K[K[K[K[K[Kcd /g[Ktem[K[Kmp
+]0;root@lvm:/tmp[root@lvm tmp]# cd /tmp[1Plogoutsof | grep /home[6P--helpyum install lsof[6Plsof /home[2@umount[C[C[C[C[C[C
+umount: /home: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+]0;root@lvm:/tmp[root@lvm tmp]# umount /home[K[K[K[K[K[K[K[K[K[K[K[Klsof(8)
+-bash: syntax error near unexpected token `8'
+]0;root@lvm:/tmp[root@lvm tmp]# lsof(8)[K[K[K | grep /home
+bash      2209      vagrant  cwd       DIR              253,2      178         67 [01;31m[K/home[m[K/vagrant
+sudo      2236         root  cwd       DIR              253,2      178         67 [01;31m[K/home[m[K/vagrant
+]0;root@lvm:/tmp[root@lvm tmp]# kill -9 ""2"2"0"9"
+]0;root@lvm:/tmp[root@lvm tmp]# [?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrant sshreload[3Pssh[K[K[K[K[K[K[K[K[K[K[Kls - [Kl home
+[?2004lls: cannot access 'home': No such file or directory
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ 
+[?2004l[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ ls -l home/home
+[?2004ltotal 4
+drwxr-x--- 27 antonioz31 antonioz31 4096 июл  2 14:12 antonioz31
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrant reload
+[?2004l[1m==> lvm: Attempting graceful shutdown of VM...[0m
+[1m==> lvm: Checking if box 'centos/7' version '1804.02' is up to date...[0m
+[1m==> lvm: Clearing any previously set forwarded ports...[0m
+[1m==> lvm: Clearing any previously set network interfaces...[0m
+[1m==> lvm: Preparing network interfaces based on configuration...[0m
+[0m    lvm: Adapter 1: nat[0m
+[1m==> lvm: Forwarding ports...[0m
+[0m    lvm: 22 (guest) => 2222 (host) (adapter 1)[0m
+[1m==> lvm: Running 'pre-boot' VM customizations...[0m
+[1m==> lvm: Booting VM...[0m
+[1m==> lvm: Waiting for machine to boot. This may take a few minutes...[0m
+[0m    lvm: SSH address: 127.0.0.1:2222[0m
+[0m    lvm: SSH username: vagrant[0m
+[0m    lvm: SSH auth method: private key[0m
+[0m    lvm: Warning: Remote connection disconnect. Retrying...[0m
+[1m==> lvm: Machine booted and ready![0m
+[1m==> lvm: Checking for guest additions in VM...[0m
+[0m    lvm: No guest additions were detected on the base box for this VM! Guest
+    lvm: additions are required for forwarded ports, shared folders, host only
+    lvm: networking, and more. If SSH fails on this machine, please install
+    lvm: the guest additions and repackage the box to continue.
+    lvm: 
+    lvm: This is not an error message; everything may continue to work properly,
+    lvm: in which case you may ignore this message.[0m
+[1m==> lvm: Setting hostname...[0m
+[1m==> lvm: Rsyncing folder: /home/antonioz31/antz31/3/ => /vagrant[0m
+[1m==> lvm: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> lvm: flag to force provisioning. Provisioners marked to run always will still run.[0m
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ vagrans[Kt ssh
+[?2004lLast login: Sun Jul  2 18:37:31 2023 from 10.0.2.2
+]0;vagrant@lvm:~[?1034h[vagrant@lvm ~]$ cd /tmo[Kp
+]0;vagrant@lvm:/tmp[vagrant@lvm tmp]$ sudo -i
+]0;root@lvm:~[?1034h[root@lvm ~]# umount /hm[Kome
+]0;root@lvm:~[root@lvm ~]# lvconvert --merge /dev/VogG[K[KlGroup00/home_+[Ksnap
+  Merging of volume VolGroup00/home_snap started.
+  VolGroup00/LogVol_Home: Merged: 100.00%
+]0;root@lvm:~[root@lvm ~]# mount /home
+]0;root@lvm:~[root@lvm ~]# sl[K[Kls -l /home
+total 0
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file1
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file10
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file11
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file12
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file13
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file14
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file15
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file16
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file17
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file18
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file19
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file2
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file20
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file3
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file4
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file5
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file6
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file7
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file8
+-rw-r--r--. 1 root    root      0 Jul  2 18:21 file9
+drwx------. 3 vagrant vagrant 178 Jul  1 16:20 [0m[38;5;27mvagrant[0m
+]0;root@lvm:~[root@lvm ~]# exit
+logout
+]0;vagrant@lvm:/tmp[vagrant@lvm tmp]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/3$ exit
+[?2004lexit
+
+Script done on 2023-07-03 00:46:28+06:00 [COMMAND_EXIT_CODE="0"]
