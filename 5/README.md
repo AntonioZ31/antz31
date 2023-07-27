@@ -17,4 +17,5 @@
 В двух скриптах, т.к. пришлось прерваться с выполнением домашнего задания:
 
 scriptreplay --timing=time.log --divisor=5 script.log
+
 scriptreplay --timing=time2.log --divisor=5 script2.log
