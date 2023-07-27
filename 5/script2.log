@@ -1,0 +1,1196 @@
+Script started on 2023-07-27 22:10:17+06:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="101" LINES="55"]
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss
+[?2004lLast login: Thu Jul 27 10:00:19 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ mkdir -i[Kp /srv/share/upload
+mkdir: cannot create directory '/srv/share': Permission denied
+]0;vagrant@nfss:~[vagrant@nfss ~]$ sudo -i
+]0;root@nfss:~[?1034h[root@nfss ~]# exitss -tnplu[5Pexit[Kmkdir -p /srv/share/upload
+]0;root@nfss:~[root@nfss ~]# chown -R nfsnobody:nfsnobody /srv/share
+]0;root@nfss:~[root@nfss ~]# chmod 0777 /srv/share/upload [K
+]0;root@nfss:~[root@nfss ~]# cat <<EOF.[K> EOF>[C[C[C >[C /etc/exports
+> /srv/share 192.168.50.11/32(rw,sync,root_squash)
+> EOF
+]0;root@nfss:~[root@nfss ~]# exor[K[Kport [Kfas- [K[K[K[Ks -r
+]0;root@nfss:~[root@nfss ~]# exportfs -s
+/srv/share  192.168.50.11/32(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash)
+]0;root@nfss:~[root@nfss ~]# exit[K[K[K[Klogout
+]0;vagrant@nfss:~[vagrant@nfss ~]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss[Kc
+[?2004l]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ sudop [K[K- [K[K -i
+]0;root@nfsc:~[?1034h[root@nfsc ~]# yum install nfs-utils
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+ * base: mirror.corbina.net
+ * extras: ftp.nsc.ru
+ * updates: ftp.nsc.ru
+base                                                                          | 3.6 kB  00:00:00     
+extras                                                                        | 2.9 kB  00:00:00     
+updates                                                                       | 2.9 kB  00:00:00     
+(2/4): base/7/x86_64/primary_db      0% [                          ]  0.0 B/s |    0 B  --:--:-- ETA (1/4): base/7/x86_64/group_gz                                                 | 153 kB  00:00:00     
+(3/4): extras/7/x86_64/primary_db    7% [=-                        ]  0.0 B/s | 2.0 MB  --:--:-- ETA (3/4): extras/7/x86_64/primary_db   18% [====-                     ] 4.9 MB/s | 5.2 MB  00:00:04 ETA (2/4): base/7/x86_64/primary_db                                               | 6.1 MB  00:00:01     
+(3/4): extras/7/x86_64/primary_db   22% [=====-                    ] 4.3 MB/s | 6.2 MB  00:00:05 ETA (4/4): updates/7/x86_64/primary_db  22% [=====-                    ] 3.4 MB/s | 6.2 MB  00:00:06 ETA (4/4): updates/7/x86_64/primary_db  22% [=====-                    ] 3.0 MB/s | 6.3 MB  00:00:07 ETA (3/4): extras/7/x86_64/primary_db   22% [=====-                    ] 2.4 MB/s | 6.3 MB  00:00:09 ETA (3/4): extras/7/x86_64/primary_db   22% [=====-                    ] 2.1 MB/s | 6.3 MB  00:00:10 ETA (4/4): updates/7/x86_64/primary_db  22% [=====-                    ] 1.6 MB/s | 6.4 MB  00:00:13 ETA (4/4): updates/7/x86_64/primary_db  22% [=====-                    ] 1.5 MB/s | 6.4 MB  00:00:14 ETA (3/4): extras/7/x86_64/primary_db   22% [=====-                    ] 1.2 MB/s | 6.4 MB  00:00:17 ETA (3/4): extras/7/x86_64/primary_db   23% [======                    ] 1.0 MB/s | 6.5 MB  00:00:21 ETA (4/4): updates/7/x86_64/primary_db  23% [======                    ] 830 kB/s | 6.5 MB  00:00:26 ETA (3/4): extras/7/x86_64/primary_db   23% [======                    ] 628 kB/s | 6.6 MB  00:00:34 ETA (3/4): extras/7/x86_64/primary_db   23% [======                    ] 571 kB/s | 6.6 MB  00:00:38 ETA (4/4): updates/7/x86_64/primary_db  23% [======                    ] 459 kB/s | 6.6 MB  00:00:47 ETA (3/4): extras/7/x86_64/primary_db   23% [======                    ] 373 kB/s | 6.7 MB  00:00:58 ETA (3/4): extras/7/x86_64/primary_db                                             | 250 kB  00:00:13     
+(4/4): updates/7/x86_64/primary_db  23% [======                    ] 302 kB/s | 6.7 MB  00:01:12 ETA (4/4): updates/7/x86_64/primary_db  23% [======                    ] 278 kB/s | 6.7 MB  00:01:18 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ] 262 kB/s | 6.7 MB  00:01:22 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ] 210 kB/s | 6.7 MB  00:01:43 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ] 187 kB/s | 6.7 MB  00:01:56 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ] 154 kB/s | 6.8 MB  00:02:21 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ] 121 kB/s | 6.8 MB  00:02:58 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ] 108 kB/s | 6.8 MB  00:03:20 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  91 kB/s | 6.8 MB  00:03:57 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  77 kB/s | 6.8 MB  00:04:40 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  67 kB/s | 6.9 MB  00:05:22 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  63 kB/s | 6.9 MB  00:05:40 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  56 kB/s | 6.9 MB  00:06:25 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  48 kB/s | 6.9 MB  00:07:32 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  43 kB/s | 6.9 MB  00:08:16 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  38 kB/s | 6.9 MB  00:09:21 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  36 kB/s | 7.0 MB  00:10:00 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  34 kB/s | 7.0 MB  00:10:28 ETA (4/4): updates/7/x86_64/primary_db  24% [======                    ]  33 kB/s | 7.0 MB  00:10:59 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  28 kB/s | 7.0 MB  00:12:58 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  31 kB/s | 7.0 MB  00:11:29 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  25 kB/s | 7.0 MB  00:14:27 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  28 kB/s | 7.1 MB  00:12:32 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  23 kB/s | 7.1 MB  00:15:48 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  21 kB/s | 7.1 MB  00:16:51 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  22 kB/s | 7.1 MB  00:15:50 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  25 kB/s | 7.1 MB  00:13:58 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  20 kB/s | 7.1 MB  00:17:36 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  25 kB/s | 7.2 MB  00:14:06 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  20 kB/s | 7.2 MB  00:17:46 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  19 kB/s | 7.2 MB  00:18:21 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  23 kB/s | 7.2 MB  00:15:27 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  20 kB/s | 7.2 MB  00:17:32 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  24 kB/s | 7.2 MB  00:14:46 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  19 kB/s | 7.2 MB  00:18:37 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  17 kB/s | 7.2 MB  00:20:50 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  20 kB/s | 7.2 MB  00:17:42 ETA (4/4): updates/7/x86_64/primary_db  25% [======-                   ]  19 kB/s | 7.2 MB  00:18:34 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  23 kB/s | 7.3 MB  00:15:38 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  19 kB/s | 7.3 MB  00:18:21 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  23 kB/s | 7.3 MB  00:15:32 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  21 kB/s | 7.3 MB  00:16:48 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  17 kB/s | 7.3 MB  00:21:01 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  21 kB/s | 7.3 MB  00:16:28 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  17 kB/s | 7.3 MB  00:20:46 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  19 kB/s | 7.4 MB  00:18:20 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  23 kB/s | 7.4 MB  00:14:59 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  19 kB/s | 7.4 MB  00:18:53 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  17 kB/s | 7.4 MB  00:20:07 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  22 kB/s | 7.4 MB  00:15:48 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  18 kB/s | 7.4 MB  00:19:50 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  23 kB/s | 7.5 MB  00:15:15 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  18 kB/s | 7.5 MB  00:19:14 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  15 kB/s | 7.5 MB  00:22:57 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  19 kB/s | 7.5 MB  00:18:49 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  18 kB/s | 7.5 MB  00:19:34 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  22 kB/s | 7.5 MB  00:15:35 ETA (4/4): updates/7/x86_64/primary_db  26% [======-                   ]  18 kB/s | 7.5 MB  00:19:30 ETA (4/4): updates/7/x86_64/primary_db  26% [=======                   ]  19 kB/s | 7.5 MB  00:18:03 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  19 kB/s | 7.6 MB  00:18:18 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  16 kB/s | 7.6 MB  00:22:20 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  21 kB/s | 7.6 MB  00:16:37 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  17 kB/s | 7.6 MB  00:19:54 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  21 kB/s | 7.6 MB  00:16:25 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  17 kB/s | 7.6 MB  00:20:40 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  22 kB/s | 7.7 MB  00:16:01 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  19 kB/s | 7.7 MB  00:18:06 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  23 kB/s | 7.7 MB  00:15:01 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  19 kB/s | 7.7 MB  00:17:47 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  23 kB/s | 7.7 MB  00:15:20 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  21 kB/s | 7.7 MB  00:16:34 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  19 kB/s | 7.7 MB  00:17:49 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  23 kB/s | 7.8 MB  00:14:53 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  21 kB/s | 7.8 MB  00:16:05 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  21 kB/s | 7.8 MB  00:16:39 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  22 kB/s | 7.8 MB  00:15:59 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  20 kB/s | 7.8 MB  00:17:34 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  23 kB/s | 7.8 MB  00:15:04 ETA (4/4): updates/7/x86_64/primary_db  27% [=======                   ]  20 kB/s | 7.8 MB  00:16:50 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  23 kB/s | 7.8 MB  00:15:08 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  21 kB/s | 7.8 MB  00:16:37 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  19 kB/s | 7.9 MB  00:18:23 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  21 kB/s | 7.9 MB  00:16:21 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  19 kB/s | 7.9 MB  00:17:58 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  16 kB/s | 7.9 MB  00:21:44 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  21 kB/s | 7.9 MB  00:16:37 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  18 kB/s | 7.9 MB  00:18:45 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  17 kB/s | 7.9 MB  00:19:54 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  21 kB/s | 7.9 MB  00:16:12 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  16 kB/s | 7.9 MB  00:21:39 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  19 kB/s | 8.0 MB  00:18:24 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  17 kB/s | 8.0 MB  00:20:11 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  17 kB/s | 8.0 MB  00:20:31 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  21 kB/s | 8.0 MB  00:16:28 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  19 kB/s | 8.0 MB  00:18:21 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  23 kB/s | 8.0 MB  00:14:45 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  22 kB/s | 8.0 MB  00:15:48 ETA (4/4): updates/7/x86_64/primary_db  28% [=======                   ]  17 kB/s | 8.0 MB  00:19:54 ETA (4/4): updates/7/x86_64/primary_db  28% [=======-                  ]  21 kB/s | 8.1 MB  00:16:19 ETA (4/4): updates/7/x86_64/primary_db  28% [=======-                  ]  20 kB/s | 8.1 MB  00:17:23 ETA (4/4): updates/7/x86_64/primary_db  28% [=======-                  ]  23 kB/s | 8.1 MB  00:14:40 ETA (4/4): updates/7/x86_64/primary_db  28% [=======-                  ]  21 kB/s | 8.1 MB  00:16:01 ETA (4/4): updates/7/x86_64/primary_db  28% [=======-                  ]  19 kB/s | 8.1 MB  00:18:03 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  22 kB/s | 8.1 MB  00:15:08 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  21 kB/s | 8.1 MB  00:16:08 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  19 kB/s | 8.1 MB  00:18:18 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  23 kB/s | 8.2 MB  00:14:41 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  19 kB/s | 8.2 MB  00:17:56 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  21 kB/s | 8.2 MB  00:15:53 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  20 kB/s | 8.2 MB  00:16:58 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  19 kB/s | 8.2 MB  00:18:07 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  20 kB/s | 8.2 MB  00:16:33 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  25 kB/s | 8.3 MB  00:13:33 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  21 kB/s | 8.3 MB  00:16:01 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  20 kB/s | 8.3 MB  00:16:37 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  22 kB/s | 8.3 MB  00:15:29 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  19 kB/s | 8.3 MB  00:17:51 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  24 kB/s | 8.3 MB  00:14:01 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  21 kB/s | 8.3 MB  00:15:46 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  20 kB/s | 8.3 MB  00:16:35 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  24 kB/s | 8.4 MB  00:13:49 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  22 kB/s | 8.4 MB  00:14:55 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  19 kB/s | 8.4 MB  00:17:24 ETA (4/4): updates/7/x86_64/primary_db  29% [=======-                  ]  23 kB/s | 8.4 MB  00:14:34 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  20 kB/s | 8.4 MB  00:16:22 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  23 kB/s | 8.4 MB  00:14:42 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  20 kB/s | 8.4 MB  00:16:45 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  23 kB/s | 8.5 MB  00:14:35 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  18 kB/s | 8.5 MB  00:18:17 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  23 kB/s | 8.5 MB  00:14:44 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  21 kB/s | 8.5 MB  00:16:12 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  20 kB/s | 8.5 MB  00:16:44 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  23 kB/s | 8.5 MB  00:14:17 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  21 kB/s | 8.5 MB  00:15:39 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  19 kB/s | 8.5 MB  00:17:41 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  17 kB/s | 8.5 MB  00:19:44 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  22 kB/s | 8.5 MB  00:15:20 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  17 kB/s | 8.6 MB  00:19:17 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  19 kB/s | 8.6 MB  00:17:45 ETA (4/4): updates/7/x86_64/primary_db  30% [=======-                  ]  17 kB/s | 8.6 MB  00:19:29 ETA (4/4): updates/7/x86_64/primary_db  30% [========                  ]  22 kB/s | 8.6 MB  00:14:47 ETA (4/4): updates/7/x86_64/primary_db  30% [========                  ]  20 kB/s | 8.6 MB  00:16:21 ETA (4/4): updates/7/x86_64/primary_db  30% [========                  ]  17 kB/s | 8.6 MB  00:19:05 ETA (4/4): updates/7/x86_64/primary_db  30% [========                  ]  23 kB/s | 8.6 MB  00:14:30 ETA (4/4): updates/7/x86_64/primary_db  30% [========                  ]  21 kB/s | 8.6 MB  00:15:32 ETA (4/4): updates/7/x86_64/primary_db  30% [========                  ]  18 kB/s | 8.6 MB  00:18:34 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  20 kB/s | 8.7 MB  00:16:06 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  16 kB/s | 8.7 MB  00:20:13 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  15 kB/s | 8.7 MB  00:22:11 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  19 kB/s | 8.7 MB  00:17:14 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  17 kB/s | 8.7 MB  00:19:21 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  22 kB/s | 8.7 MB  00:14:38 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  18 kB/s | 8.7 MB  00:18:18 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  18 kB/s | 8.7 MB  00:18:37 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  21 kB/s | 8.8 MB  00:15:42 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  16 kB/s | 8.8 MB  00:20:05 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  22 kB/s | 8.8 MB  00:15:00 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  19 kB/s | 8.8 MB  00:16:48 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  17 kB/s | 8.8 MB  00:19:04 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  21 kB/s | 8.8 MB  00:15:14 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  17 kB/s | 8.8 MB  00:19:06 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  15 kB/s | 8.8 MB  00:21:10 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  19 kB/s | 8.9 MB  00:17:26 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  16 kB/s | 8.9 MB  00:20:03 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  22 kB/s | 8.9 MB  00:15:06 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  19 kB/s | 8.9 MB  00:17:00 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  17 kB/s | 8.9 MB  00:18:40 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  17 kB/s | 8.9 MB  00:19:22 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  21 kB/s | 8.9 MB  00:15:16 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  17 kB/s | 8.9 MB  00:19:08 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  16 kB/s | 8.9 MB  00:20:48 ETA (4/4): updates/7/x86_64/primary_db  31% [========                  ]  15 kB/s | 8.9 MB  00:22:12 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  20 kB/s | 9.0 MB  00:16:17 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  17 kB/s | 9.0 MB  00:19:31 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  16 kB/s | 9.0 MB  00:19:53 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  20 kB/s | 9.0 MB  00:15:48 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  18 kB/s | 9.0 MB  00:18:20 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  21 kB/s | 9.0 MB  00:15:41 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  19 kB/s | 9.0 MB  00:16:46 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  23 kB/s | 9.1 MB  00:14:04 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  21 kB/s | 9.1 MB  00:15:11 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  25 kB/s | 9.1 MB  00:12:43 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  23 kB/s | 9.1 MB  00:13:56 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  20 kB/s | 9.1 MB  00:15:45 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  20 kB/s | 9.1 MB  00:16:22 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  21 kB/s | 9.1 MB  00:15:28 ETA (4/4): updates/7/x86_64/primary_db  32% [========                  ]  20 kB/s | 9.1 MB  00:15:59 ETA (4/4): updates/7/x86_64/primary_db  32% [========-                 ]  24 kB/s | 9.2 MB  00:13:08 ETA (4/4): updates/7/x86_64/primary_db  32% [========-                 ]  18 kB/s | 9.2 MB  00:17:23 ETA (4/4): updates/7/x86_64/primary_db  32% [========-                 ]  23 kB/s | 9.2 MB  00:13:44 ETA (4/4): updates/7/x86_64/primary_db  32% [========-                 ]  22 kB/s | 9.2 MB  00:14:44 ETA (4/4): updates/7/x86_64/primary_db  32% [========-                 ]  20 kB/s | 9.2 MB  00:16:17 ETA (4/4): updates/7/x86_64/primary_db  32% [========-                 ]  17 kB/s | 9.2 MB  00:19:01 ETA (4/4): updates/7/x86_64/primary_db  32% [========-                 ]  19 kB/s | 9.2 MB  00:16:50 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  24 kB/s | 9.2 MB  00:13:15 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  19 kB/s | 9.3 MB  00:16:34 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  22 kB/s | 9.3 MB  00:14:17 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  20 kB/s | 9.3 MB  00:15:39 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  18 kB/s | 9.3 MB  00:18:08 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  22 kB/s | 9.3 MB  00:14:38 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  16 kB/s | 9.3 MB  00:19:18 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  22 kB/s | 9.3 MB  00:14:46 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  19 kB/s | 9.3 MB  00:17:07 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  15 kB/s | 9.3 MB  00:21:24 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  20 kB/s | 9.4 MB  00:15:47 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  16 kB/s | 9.4 MB  00:19:53 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  21 kB/s | 9.4 MB  00:14:46 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  20 kB/s | 9.4 MB  00:16:02 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  17 kB/s | 9.4 MB  00:18:47 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  21 kB/s | 9.4 MB  00:15:19 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  16 kB/s | 9.4 MB  00:19:22 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  15 kB/s | 9.4 MB  00:20:42 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  21 kB/s | 9.5 MB  00:15:22 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  17 kB/s | 9.5 MB  00:18:35 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  15 kB/s | 9.5 MB  00:20:24 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  21 kB/s | 9.5 MB  00:15:15 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  16 kB/s | 9.5 MB  00:19:11 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  15 kB/s | 9.5 MB  00:20:33 ETA (4/4): updates/7/x86_64/primary_db  33% [========-                 ]  15 kB/s | 9.5 MB  00:20:59 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  20 kB/s | 9.5 MB  00:15:58 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  18 kB/s | 9.5 MB  00:17:03 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  17 kB/s | 9.5 MB  00:18:37 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  22 kB/s | 9.6 MB  00:14:31 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  20 kB/s | 9.6 MB  00:15:36 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  16 kB/s | 9.6 MB  00:19:33 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  19 kB/s | 9.6 MB  00:16:35 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  18 kB/s | 9.6 MB  00:17:30 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  22 kB/s | 9.6 MB  00:14:30 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  20 kB/s | 9.6 MB  00:15:39 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  19 kB/s | 9.6 MB  00:16:20 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  23 kB/s | 9.7 MB  00:13:51 ETA (4/4): updates/7/x86_64/primary_db  34% [========-                 ]  17 kB/s | 9.7 MB  00:18:14 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  20 kB/s | 9.7 MB  00:15:14 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  19 kB/s | 9.7 MB  00:16:26 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  18 kB/s | 9.7 MB  00:17:05 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  20 kB/s | 9.7 MB  00:15:45 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  18 kB/s | 9.7 MB  00:17:18 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  23 kB/s | 9.8 MB  00:13:21 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  21 kB/s | 9.8 MB  00:14:45 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  20 kB/s | 9.8 MB  00:15:17 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  25 kB/s | 9.8 MB  00:12:37 ETA (4/4): updates/7/x86_64/primary_db  34% [=========                 ]  20 kB/s | 9.8 MB  00:15:25 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  23 kB/s | 9.8 MB  00:13:12 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  22 kB/s | 9.8 MB  00:14:00 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  25 kB/s | 9.8 MB  00:12:33 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  22 kB/s | 9.9 MB  00:14:22 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  26 kB/s | 9.9 MB  00:11:57 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  21 kB/s | 9.9 MB  00:14:33 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  19 kB/s | 9.9 MB  00:15:53 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  18 kB/s | 9.9 MB  00:17:18 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  21 kB/s | 9.9 MB  00:14:31 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  20 kB/s | 9.9 MB  00:15:38 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  19 kB/s | 9.9 MB  00:16:12 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  23 kB/s | 9.9 MB  00:13:07 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  18 kB/s | 9.9 MB  00:16:38 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  17 kB/s | 9.9 MB  00:17:42 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  20 kB/s |  10 MB  00:15:13 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  25 kB/s |  10 MB  00:12:04 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  23 kB/s |  10 MB  00:13:06 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  20 kB/s |  10 MB  00:15:19 ETA (4/4): updates/7/x86_64/primary_db  35% [=========                 ]  21 kB/s |  10 MB  00:14:47 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  26 kB/s |  10 MB  00:11:58 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  23 kB/s |  10 MB  00:13:01 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  22 kB/s |  10 MB  00:13:53 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  21 kB/s |  10 MB  00:14:14 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  25 kB/s |  10 MB  00:12:19 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  23 kB/s |  10 MB  00:13:32 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  27 kB/s |  10 MB  00:11:13 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  23 kB/s |  10 MB  00:13:15 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  27 kB/s |  10 MB  00:11:24 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  25 kB/s |  10 MB  00:12:21 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  21 kB/s |  10 MB  00:14:23 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  25 kB/s |  10 MB  00:12:05 ETA (4/4): updates/7/x86_64/primary_db  36% [=========                 ]  23 kB/s |  10 MB  00:13:10 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  24 kB/s |  10 MB  00:12:47 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  25 kB/s |  10 MB  00:12:11 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  22 kB/s |  10 MB  00:13:30 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  20 kB/s |  10 MB  00:14:57 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  25 kB/s |  10 MB  00:12:06 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  23 kB/s |  10 MB  00:13:13 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  21 kB/s |  10 MB  00:14:15 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  22 kB/s |  10 MB  00:13:57 ETA (4/4): updates/7/x86_64/primary_db  36% [=========-                ]  20 kB/s |  10 MB  00:14:52 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  24 kB/s |  10 MB  00:12:25 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  22 kB/s |  10 MB  00:13:24 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  21 kB/s |  10 MB  00:14:37 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  19 kB/s |  10 MB  00:15:30 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  23 kB/s |  10 MB  00:13:18 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  21 kB/s |  10 MB  00:14:37 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  20 kB/s |  10 MB  00:15:00 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  24 kB/s |  10 MB  00:12:37 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  22 kB/s |  10 MB  00:13:38 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  20 kB/s |  10 MB  00:14:38 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  19 kB/s |  10 MB  00:15:29 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  23 kB/s |  10 MB  00:13:11 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  22 kB/s |  10 MB  00:13:53 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  26 kB/s |  10 MB  00:11:33 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  24 kB/s |  10 MB  00:12:21 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  22 kB/s |  10 MB  00:13:24 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  24 kB/s |  11 MB  00:12:29 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  21 kB/s |  11 MB  00:14:11 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  25 kB/s |  11 MB  00:11:57 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  23 kB/s |  11 MB  00:13:04 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  27 kB/s |  11 MB  00:10:57 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  23 kB/s |  11 MB  00:13:02 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  23 kB/s |  11 MB  00:12:52 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  26 kB/s |  11 MB  00:11:27 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  24 kB/s |  11 MB  00:12:15 ETA (4/4): updates/7/x86_64/primary_db  37% [=========-                ]  19 kB/s |  11 MB  00:15:31 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  24 kB/s |  11 MB  00:12:34 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  21 kB/s |  11 MB  00:13:56 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  25 kB/s |  11 MB  00:11:38 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  24 kB/s |  11 MB  00:12:31 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  20 kB/s |  11 MB  00:14:46 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  24 kB/s |  11 MB  00:12:05 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  19 kB/s |  11 MB  00:15:14 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  18 kB/s |  11 MB  00:16:18 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  23 kB/s |  11 MB  00:12:54 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  21 kB/s |  11 MB  00:13:47 ETA (4/4): updates/7/x86_64/primary_db  38% [=========-                ]  18 kB/s |  11 MB  00:16:11 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  23 kB/s |  11 MB  00:13:02 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  21 kB/s |  11 MB  00:14:14 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  16 kB/s |  11 MB  00:17:52 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  17 kB/s |  11 MB  00:17:09 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  18 kB/s |  11 MB  00:16:29 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  23 kB/s |  11 MB  00:12:57 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  20 kB/s |  11 MB  00:14:39 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  17 kB/s |  11 MB  00:17:30 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  22 kB/s |  11 MB  00:13:21 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  17 kB/s |  11 MB  00:16:47 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  22 kB/s |  11 MB  00:13:07 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  20 kB/s |  11 MB  00:14:45 ETA (4/4): updates/7/x86_64/primary_db  38% [==========                ]  18 kB/s |  11 MB  00:15:57 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  23 kB/s |  11 MB  00:12:31 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  19 kB/s |  11 MB  00:15:40 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  17 kB/s |  11 MB  00:17:30 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  20 kB/s |  11 MB  00:14:10 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  19 kB/s |  11 MB  00:15:26 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  17 kB/s |  11 MB  00:16:41 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  22 kB/s |  11 MB  00:12:54 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  20 kB/s |  11 MB  00:14:18 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  18 kB/s |  11 MB  00:16:25 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  16 kB/s |  11 MB  00:18:01 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  21 kB/s |  11 MB  00:13:27 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  19 kB/s |  11 MB  00:14:53 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  18 kB/s |  11 MB  00:16:06 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  17 kB/s |  11 MB  00:17:16 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  22 kB/s |  11 MB  00:13:20 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  19 kB/s |  11 MB  00:15:09 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  18 kB/s |  11 MB  00:16:24 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  22 kB/s |  11 MB  00:13:16 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  17 kB/s |  11 MB  00:16:45 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  22 kB/s |  11 MB  00:13:02 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  19 kB/s |  11 MB  00:15:26 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  24 kB/s |  11 MB  00:12:11 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  22 kB/s |  11 MB  00:13:19 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  17 kB/s |  11 MB  00:17:04 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  22 kB/s |  11 MB  00:12:52 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  20 kB/s |  11 MB  00:14:38 ETA (4/4): updates/7/x86_64/primary_db  39% [==========                ]  17 kB/s |  11 MB  00:16:33 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  21 kB/s |  11 MB  00:13:39 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  19 kB/s |  11 MB  00:15:18 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  18 kB/s |  11 MB  00:16:10 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  22 kB/s |  11 MB  00:12:51 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  21 kB/s |  11 MB  00:13:43 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  19 kB/s |  11 MB  00:14:54 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  16 kB/s |  11 MB  00:17:43 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  17 kB/s |  11 MB  00:16:59 ETA (4/4): updates/7/x86_64/primary_db  40% [==========                ]  18 kB/s |  11 MB  00:15:42 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  23 kB/s |  11 MB  00:12:16 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  21 kB/s |  11 MB  00:13:23 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  20 kB/s |  11 MB  00:14:18 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  19 kB/s |  11 MB  00:14:53 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  23 kB/s |  11 MB  00:12:29 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  21 kB/s |  11 MB  00:13:27 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  19 kB/s |  11 MB  00:14:42 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  22 kB/s |  11 MB  00:12:56 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  27 kB/s |  11 MB  00:10:28 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  20 kB/s |  11 MB  00:13:47 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  25 kB/s |  11 MB  00:11:16 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  22 kB/s |  11 MB  00:12:45 ETA (4/4): updates/7/x86_64/primary_db  40% [==========-               ]  25 kB/s |  11 MB  00:11:23 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  24 kB/s |  11 MB  00:11:54 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  25 kB/s |  12 MB  00:11:20 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  22 kB/s |  12 MB  00:12:33 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  26 kB/s |  12 MB  00:10:37 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  24 kB/s |  12 MB  00:11:28 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  22 kB/s |  12 MB  00:12:31 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  24 kB/s |  12 MB  00:11:29 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  24 kB/s |  12 MB  00:11:49 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  27 kB/s |  12 MB  00:10:14 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  24 kB/s |  12 MB  00:11:28 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  26 kB/s |  12 MB  00:10:46 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  27 kB/s |  12 MB  00:10:22 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  25 kB/s |  12 MB  00:11:18 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  29 kB/s |  12 MB  00:09:40 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  25 kB/s |  12 MB  00:11:07 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  23 kB/s |  12 MB  00:12:12 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  28 kB/s |  12 MB  00:10:00 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  25 kB/s |  12 MB  00:11:03 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  23 kB/s |  12 MB  00:12:03 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  27 kB/s |  12 MB  00:10:20 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  22 kB/s |  12 MB  00:12:20 ETA (4/4): updates/7/x86_64/primary_db  41% [==========-               ]  21 kB/s |  12 MB  00:12:58 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  22 kB/s |  12 MB  00:12:34 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  20 kB/s |  12 MB  00:13:53 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  25 kB/s |  12 MB  00:11:16 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  21 kB/s |  12 MB  00:13:21 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  20 kB/s |  12 MB  00:13:54 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  21 kB/s |  12 MB  00:12:54 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  19 kB/s |  12 MB  00:14:18 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  18 kB/s |  12 MB  00:15:17 ETA (4/4): updates/7/x86_64/primary_db  42% [==========-               ]  17 kB/s |  12 MB  00:16:03 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  20 kB/s |  12 MB  00:13:59 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  18 kB/s |  12 MB  00:15:03 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  22 kB/s |  12 MB  00:12:32 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  20 kB/s |  12 MB  00:13:55 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  18 kB/s |  12 MB  00:14:51 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  24 kB/s |  12 MB  00:11:30 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  22 kB/s |  12 MB  00:12:30 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  18 kB/s |  12 MB  00:14:52 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  16 kB/s |  12 MB  00:17:10 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  20 kB/s |  12 MB  00:13:31 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  18 kB/s |  12 MB  00:15:19 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  22 kB/s |  12 MB  00:12:14 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  20 kB/s |  12 MB  00:13:22 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  18 kB/s |  12 MB  00:14:56 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  23 kB/s |  12 MB  00:11:37 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  21 kB/s |  12 MB  00:12:40 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  17 kB/s |  12 MB  00:15:55 ETA (4/4): updates/7/x86_64/primary_db  42% [===========               ]  16 kB/s |  12 MB  00:17:00 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  19 kB/s |  12 MB  00:14:33 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  21 kB/s |  12 MB  00:13:07 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  18 kB/s |  12 MB  00:15:23 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  23 kB/s |  12 MB  00:11:54 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  18 kB/s |  12 MB  00:15:07 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  17 kB/s |  12 MB  00:16:20 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  21 kB/s |  12 MB  00:12:44 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  20 kB/s |  12 MB  00:13:45 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  18 kB/s |  12 MB  00:15:11 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  21 kB/s |  12 MB  00:12:57 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  19 kB/s |  12 MB  00:13:50 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  18 kB/s |  12 MB  00:15:09 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  22 kB/s |  12 MB  00:12:01 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  21 kB/s |  12 MB  00:12:49 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  19 kB/s |  12 MB  00:14:09 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  17 kB/s |  12 MB  00:15:26 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  22 kB/s |  12 MB  00:12:04 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  19 kB/s |  12 MB  00:13:51 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  18 kB/s |  12 MB  00:15:13 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  16 kB/s |  12 MB  00:16:20 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  21 kB/s |  12 MB  00:12:32 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  19 kB/s |  12 MB  00:14:12 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  18 kB/s |  12 MB  00:14:51 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  21 kB/s |  12 MB  00:12:47 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  19 kB/s |  12 MB  00:13:59 ETA (4/4): updates/7/x86_64/primary_db  43% [===========               ]  17 kB/s |  12 MB  00:16:06 ETA (4/4): updates/7/x86_64/primary_db  44% [===========               ]  21 kB/s |  12 MB  00:12:30 ETA (4/4): updates/7/x86_64/primary_db  44% [===========               ]  19 kB/s |  12 MB  00:13:48 ETA (4/4): updates/7/x86_64/primary_db  44% [===========               ]  17 kB/s |  12 MB  00:15:17 ETA (4/4): updates/7/x86_64/primary_db  44% [===========               ]  21 kB/s |  12 MB  00:12:32 ETA (4/4): updates/7/x86_64/primary_db  44% [===========               ]  20 kB/s |  12 MB  00:13:32 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  22 kB/s |  12 MB  00:12:09 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  20 kB/s |  12 MB  00:13:29 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  18 kB/s |  12 MB  00:14:24 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  23 kB/s |  12 MB  00:11:26 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  19 kB/s |  12 MB  00:14:00 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  23 kB/s |  12 MB  00:11:22 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  21 kB/s |  12 MB  00:12:47 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  19 kB/s |  12 MB  00:14:14 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  23 kB/s |  12 MB  00:11:26 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  21 kB/s |  12 MB  00:12:19 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  20 kB/s |  12 MB  00:13:27 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  24 kB/s |  13 MB  00:10:59 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  20 kB/s |  13 MB  00:13:08 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  24 kB/s |  13 MB  00:10:45 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  21 kB/s |  13 MB  00:12:47 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  19 kB/s |  13 MB  00:13:42 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  24 kB/s |  13 MB  00:10:54 ETA (4/4): updates/7/x86_64/primary_db  44% [===========-              ]  22 kB/s |  13 MB  00:12:12 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  26 kB/s |  13 MB  00:09:53 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  24 kB/s |  13 MB  00:10:48 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  22 kB/s |  13 MB  00:12:10 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  25 kB/s |  13 MB  00:10:16 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  20 kB/s |  13 MB  00:12:53 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  19 kB/s |  13 MB  00:13:57 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  21 kB/s |  13 MB  00:12:35 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  23 kB/s |  13 MB  00:11:29 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  20 kB/s |  13 MB  00:12:42 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  24 kB/s |  13 MB  00:10:39 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  23 kB/s |  13 MB  00:11:30 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  24 kB/s |  13 MB  00:10:42 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  25 kB/s |  13 MB  00:10:30 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  23 kB/s |  13 MB  00:11:06 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  28 kB/s |  13 MB  00:09:24 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  24 kB/s |  13 MB  00:10:51 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  22 kB/s |  13 MB  00:11:35 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  27 kB/s |  13 MB  00:09:36 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  25 kB/s |  13 MB  00:10:22 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  29 kB/s |  13 MB  00:08:54 ETA (4/4): updates/7/x86_64/primary_db  45% [===========-              ]  26 kB/s |  13 MB  00:09:49 ETA (4/4): updates/7/x86_64/primary_db  46% [===========-              ]  31 kB/s |  13 MB  00:08:25 ETA (4/4): updates/7/x86_64/primary_db  46% [===========-              ]  25 kB/s |  13 MB  00:10:11 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  28 kB/s |  13 MB  00:09:10 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  33 kB/s |  13 MB  00:07:49 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  26 kB/s |  13 MB  00:09:53 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  30 kB/s |  13 MB  00:08:36 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  25 kB/s |  13 MB  00:10:10 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  23 kB/s |  13 MB  00:11:08 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  26 kB/s |  13 MB  00:09:46 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  24 kB/s |  13 MB  00:10:43 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  28 kB/s |  13 MB  00:09:04 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  25 kB/s |  13 MB  00:10:02 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  23 kB/s |  13 MB  00:11:11 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  25 kB/s |  13 MB  00:10:01 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  22 kB/s |  13 MB  00:11:40 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  25 kB/s |  13 MB  00:10:02 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  24 kB/s |  13 MB  00:10:43 ETA (4/4): updates/7/x86_64/primary_db  46% [============              ]  21 kB/s |  13 MB  00:12:11 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  24 kB/s |  13 MB  00:10:35 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  21 kB/s |  13 MB  00:11:57 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  19 kB/s |  13 MB  00:13:25 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  18 kB/s |  13 MB  00:13:40 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  23 kB/s |  13 MB  00:11:07 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  21 kB/s |  13 MB  00:11:55 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  20 kB/s |  13 MB  00:12:47 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  19 kB/s |  13 MB  00:13:24 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  23 kB/s |  13 MB  00:11:08 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  19 kB/s |  13 MB  00:13:19 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  17 kB/s |  13 MB  00:15:03 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  21 kB/s |  13 MB  00:12:08 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  18 kB/s |  13 MB  00:13:42 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  22 kB/s |  13 MB  00:11:20 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  21 kB/s |  13 MB  00:12:12 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  19 kB/s |  13 MB  00:13:19 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  17 kB/s |  13 MB  00:15:02 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  19 kB/s |  13 MB  00:13:01 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  24 kB/s |  13 MB  00:10:19 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  22 kB/s |  13 MB  00:11:11 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  20 kB/s |  13 MB  00:12:42 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  24 kB/s |  13 MB  00:10:32 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  22 kB/s |  13 MB  00:11:33 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  25 kB/s |  13 MB  00:09:52 ETA (4/4): updates/7/x86_64/primary_db  47% [============              ]  22 kB/s |  13 MB  00:11:24 ETA (4/4): updates/7/x86_64/primary_db  48% [============              ]  26 kB/s |  13 MB  00:09:22 ETA (4/4): updates/7/x86_64/primary_db  48% [============              ]  24 kB/s |  13 MB  00:10:07 ETA (4/4): updates/7/x86_64/primary_db  48% [============              ]  23 kB/s |  13 MB  00:10:49 ETA (4/4): updates/7/x86_64/primary_db  48% [============              ]  20 kB/s |  13 MB  00:12:20 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  25 kB/s |  13 MB  00:09:58 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  23 kB/s |  13 MB  00:10:38 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  27 kB/s |  14 MB  00:09:15 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  25 kB/s |  14 MB  00:09:53 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  24 kB/s |  14 MB  00:10:24 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  24 kB/s |  14 MB  00:10:18 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  23 kB/s |  14 MB  00:10:42 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  25 kB/s |  14 MB  00:09:52 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  29 kB/s |  14 MB  00:08:31 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  26 kB/s |  14 MB  00:09:22 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  25 kB/s |  14 MB  00:09:46 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  25 kB/s |  14 MB  00:09:44 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  23 kB/s |  14 MB  00:10:29 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  26 kB/s |  14 MB  00:09:18 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  25 kB/s |  14 MB  00:09:47 ETA (4/4): updates/7/x86_64/primary_db  48% [============-             ]  25 kB/s |  14 MB  00:09:49 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  29 kB/s |  14 MB  00:08:27 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  26 kB/s |  14 MB  00:09:20 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  22 kB/s |  14 MB  00:10:49 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  26 kB/s |  14 MB  00:09:20 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  23 kB/s |  14 MB  00:10:35 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  23 kB/s |  14 MB  00:10:20 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  21 kB/s |  14 MB  00:11:45 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  20 kB/s |  14 MB  00:12:19 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  22 kB/s |  14 MB  00:10:47 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  20 kB/s |  14 MB  00:12:07 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  25 kB/s |  14 MB  00:09:34 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  23 kB/s |  14 MB  00:10:24 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  20 kB/s |  14 MB  00:11:53 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  25 kB/s |  14 MB  00:09:45 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  19 kB/s |  14 MB  00:12:45 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  18 kB/s |  14 MB  00:13:16 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  22 kB/s |  14 MB  00:10:41 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  19 kB/s |  14 MB  00:12:20 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  23 kB/s |  14 MB  00:10:26 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  21 kB/s |  14 MB  00:11:37 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  20 kB/s |  14 MB  00:11:56 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  24 kB/s |  14 MB  00:09:58 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  21 kB/s |  14 MB  00:11:27 ETA (4/4): updates/7/x86_64/primary_db  49% [============-             ]  18 kB/s |  14 MB  00:13:13 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  23 kB/s |  14 MB  00:10:33 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  21 kB/s |  14 MB  00:11:16 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  20 kB/s |  14 MB  00:12:12 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  19 kB/s |  14 MB  00:12:33 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  23 kB/s |  14 MB  00:10:20 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  21 kB/s |  14 MB  00:11:16 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  18 kB/s |  14 MB  00:12:54 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  18 kB/s |  14 MB  00:13:16 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  21 kB/s |  14 MB  00:11:23 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  19 kB/s |  14 MB  00:12:27 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  24 kB/s |  14 MB  00:09:48 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  23 kB/s |  14 MB  00:10:28 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  22 kB/s |  14 MB  00:10:57 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  24 kB/s |  14 MB  00:09:39 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  22 kB/s |  14 MB  00:10:50 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  26 kB/s |  14 MB  00:08:56 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  25 kB/s |  14 MB  00:09:32 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  24 kB/s |  14 MB  00:09:57 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  24 kB/s |  14 MB  00:09:40 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  29 kB/s |  14 MB  00:08:00 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  27 kB/s |  14 MB  00:08:43 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  23 kB/s |  14 MB  00:10:18 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  28 kB/s |  14 MB  00:08:28 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  25 kB/s |  14 MB  00:09:19 ETA (4/4): updates/7/x86_64/primary_db  50% [=============             ]  23 kB/s |  14 MB  00:10:03 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  25 kB/s |  14 MB  00:09:30 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  23 kB/s |  14 MB  00:10:14 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  26 kB/s |  14 MB  00:09:01 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  24 kB/s |  14 MB  00:09:50 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  25 kB/s |  14 MB  00:09:24 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  25 kB/s |  14 MB  00:09:15 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  23 kB/s |  14 MB  00:10:07 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  26 kB/s |  14 MB  00:08:47 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  24 kB/s |  14 MB  00:09:44 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  24 kB/s |  14 MB  00:09:46 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  23 kB/s |  14 MB  00:10:07 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  25 kB/s |  14 MB  00:09:05 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  22 kB/s |  14 MB  00:10:40 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  20 kB/s |  14 MB  00:11:20 ETA (4/4): updates/7/x86_64/primary_db  51% [=============             ]  21 kB/s |  15 MB  00:10:46 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  26 kB/s |  15 MB  00:08:49 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  24 kB/s |  15 MB  00:09:24 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  19 kB/s |  15 MB  00:12:19 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  24 kB/s |  15 MB  00:09:42 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  22 kB/s |  15 MB  00:10:28 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  19 kB/s |  15 MB  00:12:20 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  22 kB/s |  15 MB  00:10:12 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  20 kB/s |  15 MB  00:11:21 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  19 kB/s |  15 MB  00:12:10 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  24 kB/s |  15 MB  00:09:39 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  21 kB/s |  15 MB  00:11:04 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  17 kB/s |  15 MB  00:13:25 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  16 kB/s |  15 MB  00:14:21 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  20 kB/s |  15 MB  00:11:15 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  19 kB/s |  15 MB  00:12:07 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  27 kB/s |  15 MB  00:08:26 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  28 kB/s |  15 MB  00:08:05 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  24 kB/s |  15 MB  00:09:15 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  23 kB/s |  15 MB  00:10:00 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  20 kB/s |  15 MB  00:11:27 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  26 kB/s |  15 MB  00:08:46 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  24 kB/s |  15 MB  00:09:28 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  22 kB/s |  15 MB  00:10:07 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  20 kB/s |  15 MB  00:11:01 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  17 kB/s |  15 MB  00:12:52 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  24 kB/s |  15 MB  00:09:23 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  22 kB/s |  15 MB  00:10:18 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  20 kB/s |  15 MB  00:10:59 ETA (4/4): updates/7/x86_64/primary_db  52% [=============-            ]  20 kB/s |  15 MB  00:11:16 ETA (4/4): updates/7/x86_64/primary_db  53% [=============-            ]  23 kB/s |  15 MB  00:09:48 ETA (4/4): updates/7/x86_64/primary_db  53% [=============-            ]  21 kB/s |  15 MB  00:10:28 ETA (4/4): updates/7/x86_64/primary_db  53% [=============-            ]  20 kB/s |  15 MB  00:11:25 ETA (4/4): updates/7/x86_64/primary_db  53% [=============-            ]  25 kB/s |  15 MB  00:09:01 ETA (4/4): updates/7/x86_64/primary_db  53% [=============-            ]  23 kB/s |  15 MB  00:09:44 ETA (4/4): updates/7/x86_64/primary_db  53% [=============-            ]  40 kB/s |  15 MB  00:05:31 ETA (4/4): updates/7/x86_64/primary_db  59% [===============-          ] 402 kB/s |  17 MB  00:00:28 ETA (4/4): updates/7/x86_64/primary_db  69% [==================        ] 935 kB/s |  19 MB  00:00:09 ETA (4/4): updates/7/x86_64/primary_db  79% [====================-     ] 1.4 MB/s |  22 MB  00:00:04 ETA (4/4): updates/7/x86_64/primary_db  87% [======================-   ] 1.8 MB/s |  24 MB  00:00:02 ETA (4/4): updates/7/x86_64/primary_db  98% [=========================-] 2.3 MB/s |  28 MB  00:00:00 ETA (4/4): updates/7/x86_64/primary_db                                            |  22 MB  00:06:52     
+Resolving Dependencies
+--> Running transaction check
+---> Package nfs-utils.x86_64 1:1.3.0-0.66.el7 will be updated
+---> Package nfs-utils.x86_64 1:1.3.0-0.68.el7.2 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=====================================================================================================
+ Package               Arch               Version                          Repository           Size
+=====================================================================================================
+Updating:
+ nfs-utils             x86_64             1:1.3.0-0.68.el7.2               updates             413 k
+
+Transaction Summary
+=====================================================================================================
+Upgrade  1 Package
+
+Total download size: 413 k
+Is this ok [y/d/N]: y
+Downloading packages:
+No Presto metadata available for updates
+nfs-utils-1.3.0-0.68.el7.2.x86_64.rp 0% [                          ]  0.0 B/s |    0 B  --:--:-- ETA warning: /var/cache/yum/x86_64/7/updates/packages/nfs-utils-1.3.0-0.68.el7.2.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Public key for nfs-utils-1.3.0-0.68.el7.2.x86_64.rpm is not installed
+nfs-utils-1.3.0-0.68.el7.2.x86_64.rpm                                         | 413 kB  00:00:00     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-8.2003.0.el7.centos.x86_64 (@anaconda)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Is this ok [y/N]: y
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [                                           ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [##                                         ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [####                                       ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [#######                                    ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [########                                   ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [##########                                 ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [############                               ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [#############                              ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [################                           ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [##################                         ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [####################                       ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [#####################                      ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [######################                     ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [#########################                  ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [##########################                 ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [############################               ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [##############################             ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [#################################          ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [##################################         ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [###################################        ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [####################################       ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [######################################     ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [#######################################    ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [########################################   ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [#########################################  ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64 [########################################## ] 1/2  Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64                                               1/2 
+  Cleanup    : 1:nfs-utils-1.3.0-0.66.el7.x86_64                                                 2/2 
+  Verifying  : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64                                               1/2 
+  Verifying  : 1:nfs-utils-1.3.0-0.66.el7.x86_64                                                 2/2 
+
+Updated:
+  nfs-utils.x86_64 1:1.3.0-0.68.el7.2                                                                
+
+Complete!
+]0;root@nfsc:~[root@nfsc ~]# systemctl r[Kenable fr[Kirwa[K[Ke[K[Krewalld --now
+Created symlink from /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service to /usr/lib/systemd/system/firewalld.service.
+Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.service to /usr/lib/systemd/system/firewalld.service.
+]0;root@nfsc:~[root@nfsc ~]# systemctl status firewalld
+[1;32m●[0m firewalld.service - firewalld - dynamic firewall daemon
+   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)
+   Active: [1;32mactive (running)[0m since Thu 2023-07-27 11:37:54 UTC; 10s ago
+     Docs: man:firewalld(1)
+ Main PID: 22081 (firewalld)
+   CGroup: /system.slice/firewalld.service
+           └─22081 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid
+
+Jul 27 11:37:54 nfsc systemd[1]: Starting firewalld - dynamic firewall daemon...
+Jul 27 11:37:54 nfsc systemd[1]: Started firewalld - dynamic firewall daemon.
+Jul 27 11:37:54 nfsc firewalld[22081]: [1;39mWARNING: AllowZoneDrifting is enabled. This is consider...now.[0m
+Hint: Some lines were ellipsized, use -l to show in full.
+]0;root@nfsc:~[root@nfsc ~]# echo "192.168.56.10:/srv/share/ /mnt nfs vers=3,proto=udp,noauto,x-systemd.automount 0  0" >> /etc/fstab[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C.10:/srv/share/ /mnt nfs vers=3,proto=udp,noauto,x-systemd.automount 0 0[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C0.10:/srv/share/ /mnt nfs vers=3,proto=udp,noauto,x-systemd.automount 0 [1@0[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+]0;root@nfsc:~[root@nfsc ~]# systemctl daemon-rlo[K[Keload
+]0;root@nfsc:~[root@nfsc ~]# systemctl restart remote-fs.target
+]0;root@nfsc:~[root@nfsc ~]# mount | grep mnt
+systemd-1 on /[01;31m[Kmnt[m[K type autofs (rw,relatime,fd=46,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=46474)
+]0;root@nfsc:~[root@nfsc ~]# cd /mnt
+]0;root@nfsc:/mnt[root@nfsc mnt]# cd /mntmount | grep mnt
+systemd-1 on /[01;31m[Kmnt[m[K type autofs (rw,relatime,fd=46,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=46474)
+192.168.50.10:/srv/share/ on /[01;31m[Kmnt[m[K type nfs (rw,relatime,vers=3,rsize=32768,wsize=32768,namlen=255,hard,proto=udp,timeo=11,retrans=3,sec=sys,mountaddr=192.168.50.10,mountvers=3,mountport=20048,mountproto=udp,local_lock=none,addr=192.168.50.10)
+]0;root@nfsc:/mnt[root@nfsc mnt]# 2[Klogout
+]0;vagrant@nfsc:~[vagrant@nfsc ~]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc[Ks
+[?2004lLast login: Thu Jul 27 11:24:03 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ cd /srv/share/upload
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ te[Kouch check)fi[K[K[K_file
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ lo[K[Kexit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfssc
+[?2004lLast login: Thu Jul 27 11:29:23 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ cd /mnt/i[Kupload
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ ls
+check_file
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ touch client_file
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfscs
+[?2004lLast login: Thu Jul 27 11:44:27 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ exittouch check_filecd /srv/share/upload
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls
+check_file  client_file
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfssc
+[?2004lLast login: Thu Jul 27 11:45:03 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ reboot
+[1;31m==== AUTHENTICATING FOR org.freedesktop.login1.reboot ===
+[0mAuthentication is required for rebooting the system.
+Authenticating as: root
+Password: 
+polkit-agent-helper-1: pam_authenticate failed: Authentication failure
+[1;31m==== AUTHENTICATION FAILED ===
+[0mFailed to execute operation: Access denied
+Must be root.
+]0;vagrant@nfsc:~[vagrant@nfsc ~]$ sudo -i
+]0;root@nfsc:~[?1034h[root@nfsc ~]# reboot
+Connection to 127.0.0.1 closed by remote host.
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc
+[?2004lLast login: Thu Jul 27 11:46:51 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ cd /mnt/upload
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ ls
+check_file  client_file
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc[Ks
+[?2004lLast login: Thu Jul 27 11:45:38 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ re[K[Ksudo -i
+]0;root@nfss:~[?1034h[root@nfss ~]# reboot
+Connection to 127.0.0.1 closed by remote host.
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss
+[?2004lLast login: Thu Jul 27 11:48:54 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ ls -l /srv/share/upload
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27  2023 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27  2023 client_file
+]0;vagrant@nfss:~[vagrant@nfss ~]$ systemctl status nfs
+[1;32m●[0m nfs-server.service - NFS server and services
+   Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: disabled)
+  Drop-In: /run/systemd/generator/nfs-server.service.d
+           └─order-with-mounts.conf
+   Active: [1;32mactive (exited)[0m since Thu 2023-07-27 11:39:02 UTC; 27s ago
+  Process: 827 ExecStartPost=/bin/sh -c if systemctl -q is-active gssproxy; then systemctl reload gssproxy ; fi (code=exited, status=0/SUCCESS)
+  Process: 801 ExecStart=/usr/sbin/rpc.nfsd $RPCNFSDARGS (code=exited, status=0/SUCCESS)
+  Process: 798 ExecStartPre=/usr/sbin/exportfs -r (code=exited, status=0/SUCCESS)
+ Main PID: 801 (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/nfs-server.service
+]0;vagrant@nfss:~[vagrant@nfss ~]$ systemctl status fr[Kirewalld
+[1;32m●[0m firewalld.service - firewalld - dynamic firewall daemon
+   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)
+   Active: [1;32mactive (running)[0m since Thu 2023-07-27 11:38:58 UTC; 1min 10s ago
+     Docs: man:firewalld(1)
+ Main PID: 405 (firewalld)
+   CGroup: /system.slice/firewalld.service
+           └─405 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid
+]0;vagrant@nfss:~[vagrant@nfss ~]$ exportfs -s
+exportfs: could not open /var/lib/nfs/.etab.lock for locking: errno 13 (Permission denied)
+]0;vagrant@nfss:~[vagrant@nfss ~]$ sudo -i
+]0;root@nfss:~[?1034h[root@nfss ~]# exportfs -s
+/srv/share  192.168.50.11/32(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash)
+]0;root@nfss:~[root@nfss ~]# showmoi[Kunt -0[Ka 192.168.50.10
+All mount points on 192.168.50.10:
+192.168.50.11:/srv/share
+]0;root@nfss:~[root@nfss ~]# exit
+logout
+]0;vagrant@nfss:~[vagrant@nfss ~]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss[Kc
+[?2004lLast login: Thu Jul 27 11:37:47 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ sudo -i
+]0;root@nfsc:~[?1034h[root@nfsc ~]# reo[Kboot
+Connection to 127.0.0.1 closed by remote host.
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc
+[?2004lLast login: Thu Jul 27 11:42:34 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ showmount -a 192.168.6[K50.10
+All mount points on 192.168.50.10:
+]0;vagrant@nfsc:~[vagrant@nfsc ~]$ sl[K[Kls -l /mnt.[K/upload
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27  2023 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27  2023 client_file
+]0;vagrant@nfsc:~[vagrant@nfsc ~]$ cd /n[Kmnt/upload/
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ touch fina-[Kl_check
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ l[Kls -l[K[K[K[K[Klo[K[Kexit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfscs
+[?2004lLast login: Thu Jul 27 11:39:12 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ ls -l /srv/share/upload
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27  2023 client_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 final_check
+]0;vagrant@nfss:~[vagrant@nfss ~]$ cd /srv/share/upload/
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:45 client_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 final_check
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls -lcd /srv/share/upload/ls -l /srv/share/upload^C
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ sudo -o
+sudo: invalid option -- 'o'
+usage: sudo -h | -K | -k | -V
+usage: sudo -v [-AknS] [-g group] [-h host] [-p prompt] [-u user]
+usage: sudo -l [-AknS] [-g group] [-h host] [-p prompt] [-U user] [-u user] [command]
+usage: sudo [-AbEHknPS] [-r role] [-t type] [-C num] [-g group] [-h host] [-p prompt] [-T timeout]
+            [-u user] [VAR=value] [-i|-s] [<command>]
+usage: sudo -e [-AknS] [-r role] [-t type] [-C num] [-g group] [-h host] [-p prompt] [-T timeout]
+            [-u user] file ...
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ sudo -o[Ki
+]0;root@nfss:~[?1034h[root@nfss ~]# touch [K[K[K[K[K[Kcd /srv/shareexit[Kshowmount -a 192.168.50.10[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[15Pexportfs -s[5Prebootlogoutexportfs -s[K[K[K[K[K[K[K[K[K[K[Kls -l /srv/mnt/u[1P/u[1P/u[1P/us/uj/ua/ur/ue/u[1P/u[1P/u[1P/u[1P/uh/ua/ur/ue/u[Cpulu[K[K[Kupload/
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:45 client_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 final_check
+]0;root@nfss:~[root@nfss ~]# e[Klogout
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ sudo -io[2Pls -lcd /srv/share/upload/
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:45 client_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 11:44 final_check
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vi Vagrantfile 
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;55r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[55;1H"Vagrantfile" 18L, 539B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[1;1H[34m# -*- mode: ruby -*- 
+# vi: set ft=ruby : vsa[m[2;24H[K[3;1HVagrant.configure(2) do |config| [3;34H[K[4;2Hconfig.vm.box = [31m"centos/7"[m
+ config.vm.box_version = [31m"2004.01"[m
+ config.vm.provider [31m"virtualbox"[m do |v|
+ v.memory = 256
+ v.cpus = 1
+ end
+ config.vm.define [31m"nfss"[m do |nfss|
+ nfss.vm.network [31m"private_network"[m, ip: [31m"192.168.50.10"[m,  virtualbox__intnet: [31m"net1"[m
+ nfss.vm.hostname = [31m"nfss"[m
+ end
+ config.vm.define [31m"nfsc"[m do |nfsc|
+ nfsc.vm.network [31m"private_network"[m, ip: [31m"192.168.50.11"[m,  virtualbox__intnet: [31m"net1"[m
+ nfsc.vm.hostname = [31m"nfsc"[m
+ end
+end
+[94m~                                                                                                    [20;1H~                                                                                                    [21;1H~                                                                                                    [22;1H~                                                                                                    [23;1H~                                                                                                    [24;1H~                                                                                                    [25;1H~                                                                                                    [26;1H~                                                                                                    [27;1H~                                                                                                    [28;1H~                                                                                                    [29;1H~                                                                                                    [30;1H~                                                                                                    [31;1H~                                                                                                    [32;1H~                                                                                                    [33;1H~                                                                                                    [34;1H~                                                                                                    [35;1H~                                                                                                    [36;1H~                                                                                                    [37;1H~                                                                                                    [38;1H~                                                                                                    [39;1H~                                                                                                    [40;1H~                                                                                                    [41;1H~                                                                                                    [42;1H~                                                                                                    [43;1H~                                                                                                    [44;1H~                                                                                                    [45;1H~                                                                                                    [46;1H~                                                                                                    [47;1H~                                                                                                    [48;1H~                                                                                                    [49;1H~                                                                                                    [50;1H~                                                                                                    [51;1H~                                                                                                    [52;1H~                                                                                                    [53;1H~                                                                                                    [54;1H~                                                                                                    [m[55;84H1,1[11CAll[1;1H[?25hP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\P$q q\[?12$p[?25l[55;74H0[1;1H[55;75H3[1;1H[55;76H0[1;1H[55;77H/[1;1H[55;78H0[1;1H[55;79Ha[1;1H[55;80H0[1;1H[55;81Ha[1;1H[55;82H/[1;1H[55;83H2[1;1H[55;74H          [1;1H[27m[23m[29m[m[H[2J[1;1H[96m# -*- mode: ruby -*- 
+# vi: set ft=ruby : vsa[m
+Vagrant.configure(2) do |config|
+ config.vm.box = [95m"centos/7"[m
+ config.vm.box_version = [95m"2004.01"[m
+ config.vm.provider [95m"virtualbox"[m do |v|
+ v.memory = 256
+ v.cpus = 1
+ end
+ config.vm.define [95m"nfss"[m do |nfss|
+ nfss.vm.network [95m"private_network"[m, ip: [95m"192.168.50.10"[m,  virtualbox__intnet: [95m"net1"[m
+ nfss.vm.hostname = [95m"nfss"[m
+ end
+ config.vm.define [95m"nfsc"[m do |nfsc|
+ nfsc.vm.network [95m"private_network"[m, ip: [95m"192.168.50.11"[m,  virtualbox__intnet: [95m"net1"[m
+ nfsc.vm.hostname = [95m"nfsc"[m
+ end
+end
+[94m~                                                                                                    [20;1H~                                                                                                    [21;1H~                                                                                                    [22;1H~                                                                                                    [23;1H~                                                                                                    [24;1H~                                                                                                    [25;1H~                                                                                                    [26;1H~                                                                                                    [27;1H~                                                                                                    [28;1H~                                                                                                    [29;1H~                                                                                                    [30;1H~                                                                                                    [31;1H~                                                                                                    [32;1H~                                                                                                    [33;1H~                                                                                                    [34;1H~                                                                                                    [35;1H~                                                                                                    [36;1H~                                                                                                    [37;1H~                                                                                                    [38;1H~                                                                                                    [39;1H~                                                                                                    [40;1H~                                                                                                    [41;1H~                                                                                                    [42;1H~                                                                                                    [43;1H~                                                                                                    [44;1H~                                                                                                    [45;1H~                                                                                                    [46;1H~                                                                                                    [47;1H~                                                                                                    [48;1H~                                                                                                    [49;1H~                                                                                                    [50;1H~                                                                                                    [51;1H~                                                                                                    [52;1H~                                                                                                    [53;1H~                                                                                                    [54;1H~                                                                                                    [m[55;84H1,1[11CAll"Vagrantfile" 18L, 539B[1;1H[?25h[?25l[55;74Hi[1;1H[55;74H [1;1H[55;1H[1m-- INSERT --[m[55;13H[K[55;84H1,1[11CAll[1;1H[?25h[?25l[1;54r[1;1H[12M[1;55r[43;1H[94m~                                                                                                    [44;1H~                                                                                                    [45;1H~                                                                                                    [46;1H~                                                                                                    [47;1H~                                                                                                    [48;1H~                                                                                                    [49;1H~                                                                                                    [50;1H~                                                                                                    [51;1H~                                                                                                    [52;1H~                                                                                                    [53;1H~                                                                                                    [54;1H~                                                                                                    [m[55;84H[K[55;84H18,1[10CBot[6;1H[?25h[?25liend[55;87H2[6;2H[?25h[?25l[55;87H3[6;3H[?25h[?25l[55;87H4[6;4H[?25h[?25l[55;87H5[6;5H[?25h[55;1H[K[6;4H[?25l[55;74H^[[6;4H[55;74H  [6;5H[55;84H18,4[10CBot[6;4H[?25h[?25l[55;74H:[6;4H[55;74H[K[55;1H:[?25hq![?25l[?2004l[>4;m[23;2t[23;1t[55;1H[K[55;1H[?1004l[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ mc
+[?2004l[?1049h[22;0;0t[1;55r[4l[55;1H(B[m[37m[40m(B[m[39;49m[K[?1049l[23;0;0t[?1001s[?1002h[?1006h[?2004h[?1049h[22;0;0t[1;55r[4l[?1h=[?1h=(B[m[39m[49m[1;55r[H[2J[1;1H[2;100H[1K [37m[44m┐[2;101H]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>┌<─[30m[47m ~/antz31/5 [37m[44m─────────────────────────────.[^]>┐[50C
+│[93m.n          Name           [37m│[93m Size  [37m│[93mModify time [37m│
+│[30m[46m/..                        │UP--DIR│июл 27 14:24[37m[44m│
+│[97m/.vagrant                  [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│
+│ README.md                 │      0│июл 27 14:31│
+│ Vagrantfile               │    539│июл 27 14:48│
+│ script.log                │  37402│июл 27 15:07│
+│ script2.log               │  98304│июл 27 22:45│
+│ time.log                  │   7629│июл 27 15:07│
+│ time2.log                 │  20480│июл 27 22:38│
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+├────────────────────────────────────────────────┤
+│UP--DIR                                         │
+└─────────────────────────────── 21G/118G (17%) ─┘
+[39m[49mHint: Want your plain shell? Press C-o, and get back to MC with C-o again.
+
+[97m[40m 1[30m[46mHelp    [97m[40m 2[30m[46mMenu    [97m[40m 3[30m[46mView    [97m[40m 4[30m[46mEdit    [97m[40m 5[30m[46mCopy    [97m[40m 6[30m[46mRenMov  [97m[40m 7[30m[46mMkdir   [97m[40m 8[30m[46mDelete  [97m[40m 9[30m[46mPullDn  [97m[40m10[30m[46mQuit[K[53;101H]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>[1;1H  Left     File     Command     Options     Right[K[2;51H[37m[44m┌<─ ~/antz31/5 ──────────────────────────────.[^]>[3;51H│[93m.n          Name            [37m│[93m Size  [37m│[93mModify time [37m│[4;51H│[97m/..                         [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m│[5;51H│[97m/.vagrant                   [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│[6;51H│ README.md                  │      0│июл 27 14:31│[7;51H│ Vagrantfile                │    539│июл 27 14:48│[8;51H│ script.log                 │  37402│июл 27 15:07│[9;51H│ script2.log                │  98304│июл 27 22:45│[10;51H│ time.log                   │   7629│июл 27 15:07│[11;51H│ time2.log                  │  20480│июл 27 22:38│[12;51H│                            │       │            │[13;51H│                            │       │            │[14;51H│                            │       │            │[15;51H│                            │       │            │[16;51H│                            │       │            │[17;51H│                            │       │            │[18;51H│                            │       │            │[19;51H│                            │       │            │[20;51H│                            │       │            │[21;51H│                            │       │            │[22;51H│                            │       │            │[23;51H│                            │       │            │[24;51H│                            │       │            │[25;51H│                            │       │            │[26;51H│                            │       │            │[27;51H│                            │       │            │[28;51H│                            │       │            │[29;51H│                            │       │            │[30;51H│                            │       │            │[31;51H│                            │       │            │[32;51H│                            │       │            │[33;51H│                            │       │            │[34;51H│                            │       │            │[35;51H│                            │       │            │[36;51H│                            │       │            │[37;51H│                            │       │            │[38;51H│                            │       │            │[39;51H│                            │       │            │[40;51H│                            │       │            │[41;51H│                            │       │            │[42;51H│                            │       │            │[43;51H│                            │       │            │[44;51H│                            │       │            │[45;51H│                            │       │            │[46;51H│                            │       │            │[47;51H│                            │       │            │[48;51H│                            │       │            │[49;51H│                            │       │            │[50;51H├─────────────────────────────────────────────────┤[51;51H│UP--DIR                                          │[52;51H└──────────────────────────────── 21G/118G (17%) ─┘[54;1H[39m[49mantonioz31@antonioz31-N751JK:~$[67C[37m[44m[^][54;33H[54;31H[39m[49m/antz31/5$[58C[54;42H[4;2H[97m[44m/..                        [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[5;2H[30m[46m/.vagrant                  │   4096│июл 27 14:38[51;2H[37m[44m/.vagrant[54;42H[5;2H[97m/.vagrant                  [37m│[97m   4096[37m│[97mиюл 27 14:38[6;2H[30m[46m README.md                 │      0│июл 27 14:31[51;2H[37m[44m README.md[54;42H[6;2H README.md                 │      0│июл 27 14:31[7;2H[30m[46m Vagrantfile               │    539│июл 27 14:48[51;3H[37m[44mVagrantfile[54;42H[1;1H[39m[49m[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;101H[?1006l[?1002l[?1001r[?2004l[?1l>[55;1H(B[m[39;49m[K[?1049l[23;0;0t>[?2004h[?1049h[22;0;0t[1;55r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[53;44H(B[0;7m[ Reading... ](B[m[53;43H(B[0;7m[ Read 18 lines ](B[m[H(B[0;7m  GNU nano 6.2                    /home/antonioz31/antz31/5/Vagrantfile                              [1;100H(B[m[54d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[54;57H(B[0;7m^T(B[m Execute    (B[0;7m^C(B[m Location   (B[0;7mM-U(B[m Undo[55d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify    (B[0;7m^/(B[m Go To Line (B[0;7mM-E(B[m Redo[2d[36m# -*- mode: ruby -*- [3d# vi: set ft=ruby : vsa[4d[39m(B[mVagrant.configure(2) do |config|[5d config.vm.box = "centos/7"[6d config.vm.box_version = "2004.01"[7d config.vm.provider "virtualbox" do |v|[8d v.memory = 256[9d v.cpus = 1[10d end[11d config.vm.define "nfss" do |nfss|[12d nfss.vm.network "private_network", ip: "192.168.50.10",  virtualbox__intnet: "net1"[13d nfss.vm.hostname = "nfss"[14d end[15d config.vm.define "nfsc" do |nfsc|[16d nfsc.vm.network "private_network", ip: "192.168.50.11",  virtualbox__intnet: "net1"[17d nfsc.vm.hostname = "nfsc"[18d end[19dend[2d[?12l[?25h[?25l[?12l[?25h[3d[?25l[?12l[?25h[4d[?25l[1;96H(B[0;7mM   (B[m[?12l[?25h[4d(B[0;7mVagrant.configure(2) do |config| [5d(B[m[?25l[?12l[?25h(B[0;7m config.vm.box = "centos/7" [6d(B[m[?25l[?12l[?25h(B[0;7m config.vm.box_version = "2004.01" [7d(B[m[?25l[?12l[?25h(B[0;7m config.vm.provider "virtualbox" do |v| [8d(B[m[?25l[?12l[?25h(B[0;7m v.memory = 256 [9d(B[m[?25l[?12l[?25h(B[0;7m v.cpus = 1 [10d(B[m[?25l[?12l[?25h(B[0;7m end [11d(B[m[?25l[?12l[?25h(B[0;7m config.vm.define "nfss" do |nfss| [12d(B[m[?25l[?12l[?25h(B[0;7m nfss.vm.network "private_network", ip: "192.168.50.10",  virtualbox__intnet: "net1" [13d(B[m[?25l[?12l[?25h(B[0;7m nfss.vm.hostname = "nfss" [14d(B[m[?25l[?12l[?25h(B[0;7m end [15d(B[m[?25l[?12l[?25h(B[0;7m config.vm.define "nfsc" do |nfsc| [16d(B[m[?25l[?12l[?25h(B[0;7m nfsc.vm.network "private_network", ip: "192.168.50.11",  virtualbox__intnet: "net1" [17d(B[m[?25l[?12l[?25h(B[0;7m nfsc.vm.hostname = "nfsc" [18d(B[m[?25l[?12l[?25h(B[0;7m end [19d(B[m[?25l[?12l[?25h(B[0;7mend [20d(B[m[?25l[1;73H(B[0;7m*[96G    (B[m[53d[K[1;100H[4d[K[5d[K[6d[K[7d[K[8d[K[9d[K[10d[K[11d[K[12d[K[13d[K[14d[K[15d[K[16d[K[17d[K[18d[K[19d[K[4d[?12l[?25h[?25lVagrant.configure(2) do |config|[5d config.vm.box = "centos/7"[6d config.vm.box_version = "2004.01"[7d config.vm.provider "virtualbox" do |v|[8d v.memory = 256[9d v.cpus = 1[10d end[11d config.vm.define "nfss" do |nfss|[12d nfss.vm.network "private_network", ip: "192.168.50.10",  virtualbox__intnet: "net1"[13d nfss.vm.hostname = "nfss"[14d nfss.vm.provision "shell", path: "nfss_script.sh"  end[15d config.vm.define "nfsc" do |nfsc|[16d nfsc.vm.network "private_network", ip: "192.168.50.11",  virtualbox__intnet: "net1"[17d nfsc.vm.hostname = "nfsc"[18d nfsc.vm.provision "shell", path: "nfsc_script.sh"  end[19dend[20d[?12l[?25h[?25l[?12l[?25h[Aend[?25l[53d(B[0;7mSave modified buffer?                                                                                [54;1H Y(B[m Yes[K[55d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[53;23H[?12l[?25h[?25l[54d(B[0;7m^G(B[m Help[54;26H(B[0;7mM-D(B[m DOS Format[54;51H(B[0;7mM-A(B[m Append[54;76H(B[0;7mM-B(B[m Backup File[55d(B[0;7m^C(B[m Cancel[17G         (B[0;7mM-M(B[m Mac Format[55;51H(B[0;7mM-P(B[m Prepend[55;76H(B[0;7m^T(B[m Browse[53d(B[0;7mFile Name to Write: /home/antonioz31/antz31/5/Vagrantfile(B[m[?12l[?25h[?25l[53;43H[1K (B[0;7m[ Writing... ](B[m[K[1;73H(B[0;7m [100G(B[m[53;42H(B[0;7m[ Wrote 18 lines ](B[m[J[55d[?12l[?25h[55;1H[?1049l[23;0;0t[?1l>[?2004l[?1001s[?1002h[?1006h[?2004h]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>[?1049h[22;0;0t[1;55r[4l[?1h=(B[m[39m[49m[1;55r[H[2J[1;1H[30m[46m  Left     File     Command     Options     Right[K
+[37m[44m┌<─[30m[47m ~/antz31/5 [37m[44m─────────────────────────────.[^]>┐┌<─ ~/antz31/5 ──────────────────────────────.[^]>┐[3;1H│[93m.n          Name           [37m│[93m Size  [37m│[93mModify time [37m││[93m.n          Name            [37m│[93m Size  [37m│[93mModify time [37m│[4;1H│[97m/..                        [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m││[97m/..                         [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m│[5;1H│[97m/.vagrant                  [37m│[97m   4096[37m│[97mиюл 27 14:38[37m││[97m/.vagrant                   [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│[6;1H│ README.md                 │      0│июл 27 14:31││ README.md                  │      0│июл 27 14:31│[7;1H│[30m[46m Vagrantfile               │    640│июл 27 22:46[37m[44m││ Vagrantfile                │    640│июл 27 22:46│[8;1H│ script.log                │  37402│июл 27 15:07││ script.log                 │  37402│июл 27 15:07│[9;1H│ script2.log               │ 110592│июл 27 22:46││ script2.log                │ 110592│июл 27 22:46│[10;1H│ time.log                  │   7629│июл 27 15:07││ time.log                   │   7629│июл 27 15:07│[11;1H│ time2.log                 │  24576│июл 27 22:46││ time2.log                  │  24576│июл 27 22:46│[12;1H│                           │       │            ││                            │       │            │[13;1H│                           │       │            ││                            │       │            │[14;1H│                           │       │            ││                            │       │            │[15;1H│                           │       │            ││                            │       │            │[16;1H│                           │       │            ││                            │       │            │[17;1H│                           │       │            ││                            │       │            │[18;1H│                           │       │            ││                            │       │            │[19;1H│                           │       │            ││                            │       │            │[20;1H│                           │       │            ││                            │       │            │[21;1H│                           │       │            ││                            │       │            │[22;1H│                           │       │            ││                            │       │            │[23;1H│                           │       │            ││                            │       │            │[24;1H│                           │       │            ││                            │       │            │[25;1H│                           │       │            ││                            │       │            │[26;1H│                           │       │            ││                            │       │            │[27;1H│                           │       │            ││                            │       │            │[28;1H│                           │       │            ││                            │       │            │[29;1H│                           │       │            ││                            │       │            │[30;1H│                           │       │            ││                            │       │            │[31;1H│                           │       │            ││                            │       │            │[32;1H│                           │       │            ││                            │       │            │[33;1H│                           │       │            ││                            │       │            │[34;1H│                           │       │            ││                            │       │            │[35;1H│                           │       │            ││                            │       │            │[36;1H│                           │       │            ││                            │       │            │[37;1H│                           │       │            ││                            │       │            │[38;1H│                           │       │            ││                            │       │            │[39;1H│                           │       │            ││                            │       │            │[40;1H│                           │       │            ││                            │       │            │[41;1H│                           │       │            ││                            │       │            │[42;1H│                           │       │            ││                            │       │            │[43;1H│                           │       │            ││                            │       │            │[44;1H│                           │       │            ││                            │       │            │[45;1H│                           │       │            ││                            │       │            │[46;1H│                           │       │            ││                            │       │            │[47;1H│                           │       │            ││                            │       │            │[48;1H│                           │       │            ││                            │       │            │[49;1H│                           │       │            ││                            │       │            │[50;1H├────────────────────────────────────────────────┤├─────────────────────────────────────────────────┤[51;1H│ Vagrantfile                                    ││UP--DIR                                          │[52;1H└─────────────────────────────── 21G/118G (17%) ─┘└──────────────────────────────── 21G/118G (17%) ─┘[53;1H[39m[49mHint: Want your plain shell? Press C-o, and get back to MC with C-o again.
+antonioz31@antonioz31-N751JK:~/antz31/5$[58C[37m[44m[^][55;1H[97m[40m 1[30m[46mHelp    [97m[40m 2[30m[46mMenu    [97m[40m 3[30m[46mView    [97m[40m 4[30m[46mEdit    [97m[40m 5[30m[46mCopy    [97m[40m 6[30m[46mRenMov  [97m[40m 7[30m[46mMkdir   [97m[40m 8[30m[46mDelete  [97m[40m 9[30m[46mPullDn  [97m[40m10[30m[46mQuit[K[2;101H[9;33H[37m[44m8784[54;42H[1;1H[39m[49m[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;101H[?2004l[?1006l[?1002l[?1001r[?1l>[55;1H(B[m[39;49m[K[?1049l[23;0;0t[39;49m
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ cat Vagrantfile 
+[?2004l# -*- mode: ruby -*- 
+# vi: set ft=ruby : vsa
+Vagrant.configure(2) do |config| 
+ config.vm.box = "centos/7" 
+ config.vm.box_version = "2004.01" 
+ config.vm.provider "virtualbox" do |v| 
+ v.memory = 256 
+ v.cpus = 1 
+ end 
+ config.vm.define "nfss" do |nfss| 
+ nfss.vm.network "private_network", ip: "192.168.50.10",  virtualbox__intnet: "net1" 
+ nfss.vm.hostname = "nfss" 
+ nfss.vm.provision "shell", path: "nfss_script.sh"  end 
+ config.vm.define "nfsc" do |nfsc| 
+ nfsc.vm.network "private_network", ip: "192.168.50.11",  virtualbox__intnet: "net1" 
+ nfsc.vm.hostname = "nfsc" 
+ nfsc.vm.provision "shell", path: "nfsc_script.sh"  end 
+end
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ touch nfss_c[Kscript.sh
+[?2004l[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ mc
+[?2004l[?1049h[22;0;0t[1;55r[4l[55;1H(B[m[37m[40m(B[m[39;49m[K[?1049l[23;0;0t[?1001s[?1002h[?1006h[?2004h[?1049h[22;0;0t[1;55r[4l[?1h=[?1h=(B[m[39m[49m[1;55r[H[2J[1;1H[2;100H[1K [37m[44m┐[2;101H]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>┌<─[30m[47m ~/antz31/5 [37m[44m─────────────────────────────.[^]>┐[50C
+│[93m.n          Name           [37m│[93m Size  [37m│[93mModify time [37m│
+│[30m[46m/..                        │UP--DIR│июл 27 14:24[37m[44m│
+│[97m/.vagrant                  [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│
+│ README.md                 │      0│июл 27 14:31│
+│ Vagrantfile               │    640│июл 27 22:46│
+│[36m nfss_script.sh            [37m│[36m      0[37m│[36mиюл 27 22:46[37m│
+│ script.log                │  37402│июл 27 15:07│
+│ script2.log               │ 118784│июл 27 22:46│
+│ time.log                  │   7629│июл 27 15:07│
+│ time2.log                 │  24576│июл 27 22:46│
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+├────────────────────────────────────────────────┤
+│UP--DIR                                         │
+└─────────────────────────────── 21G/118G (17%) ─┘
+[39m[49mHint: Want your plain shell? Press C-o, and get back to MC with C-o again.
+
+[97m[40m 1[30m[46mHelp    [97m[40m 2[30m[46mMenu    [97m[40m 3[30m[46mView    [97m[40m 4[30m[46mEdit    [97m[40m 5[30m[46mCopy    [97m[40m 6[30m[46mRenMov  [97m[40m 7[30m[46mMkdir   [97m[40m 8[30m[46mDelete  [97m[40m 9[30m[46mPullDn  [97m[40m10[30m[46mQuit[K[53;101H]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>[1;1H  Left     File     Command     Options     Right[K[2;51H[37m[44m┌<─ ~/antz31/5 ──────────────────────────────.[^]>[3;51H│[93m.n          Name            [37m│[93m Size  [37m│[93mModify time [37m│[4;51H│[97m/..                         [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m│[5;51H│[97m/.vagrant                   [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│[6;51H│ README.md                  │      0│июл 27 14:31│[7;51H│ Vagrantfile                │    640│июл 27 22:46│[8;51H│[36m nfss_script.sh             [37m│[36m      0[37m│[36mиюл 27 22:46[37m│[9;51H│ script.log                 │  37402│июл 27 15:07│[10;51H│ script2.log                │ 118784│июл 27 22:46│[11;51H│ time.log                   │   7629│июл 27 15:07│[12;51H│ time2.log                  │  24576│июл 27 22:46│[13;51H│                            │       │            │[14;51H│                            │       │            │[15;51H│                            │       │            │[16;51H│                            │       │            │[17;51H│                            │       │            │[18;51H│                            │       │            │[19;51H│                            │       │            │[20;51H│                            │       │            │[21;51H│                            │       │            │[22;51H│                            │       │            │[23;51H│                            │       │            │[24;51H│                            │       │            │[25;51H│                            │       │            │[26;51H│                            │       │            │[27;51H│                            │       │            │[28;51H│                            │       │            │[29;51H│                            │       │            │[30;51H│                            │       │            │[31;51H│                            │       │            │[32;51H│                            │       │            │[33;51H│                            │       │            │[34;51H│                            │       │            │[35;51H│                            │       │            │[36;51H│                            │       │            │[37;51H│                            │       │            │[38;51H│                            │       │            │[39;51H│                            │       │            │[40;51H│                            │       │            │[41;51H│                            │       │            │[42;51H│                            │       │            │[43;51H│                            │       │            │[44;51H│                            │       │            │[45;51H│                            │       │            │[46;51H│                            │       │            │[47;51H│                            │       │            │[48;51H│                            │       │            │[49;51H│                            │       │            │[50;51H├─────────────────────────────────────────────────┤[51;51H│UP--DIR                                          │[52;51H└──────────────────────────────── 21G/118G (17%) ─┘[54;1H[39m[49mantonioz31@antonioz31-N751JK:~$[67C[37m[44m[^][54;33H[54;31H[39m[49m/antz31/5$[58C[54;42H[4;2H[97m[44m/..                        [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[8;2H[30m[46m nfss_script.sh            │      0│июл 27 22:46[51;2H[37m[44m nfss_script.sh[54;42H[1;1H[39m[49m[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;101H[?1006l[?1002l[?1001r[?2004l[?1l>[55;1H(B[m[39;49m[K[?1049l[23;0;0t>[?2004h[?1049h[22;0;0t[1;55r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[53;44H(B[0;7m[ Reading... ](B[m[53;43H(B[0;7m[ Read 0 lines ](B[m[H(B[0;7m  GNU nano 6.2                   /home/antonioz31/antz31/5/nfss_script.sh                            [1;100H(B[m[54d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[54;57H(B[0;7m^T(B[m Execute    (B[0;7m^C(B[m Location   (B[0;7mM-U(B[m Undo[55d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify    (B[0;7m^/(B[m Go To Line (B[0;7mM-E(B[m Redo[2d[?12l[?25h[?25l[1;75H(B[0;7m*[53d(B[m[K[1;100H[2d[36m#!/usr/bin/env bash[4d[39m(B[myum (B[0;1m[34minstall[35m -y[39m(B[m nfs-utils[5dsystemctl enable firewalld(B[0;1m[35m --now[7d[39m(B[mfirewall-cmd(B[0;1m[35m --add-service(B[0m[32m=(B[0;1m[33m"nfs3"[35m --add-service(B[0m[32m=(B[0;1m[33m"rpc-bind"[35m --add-service(B[0m[32m=(B[0;1m[33m"mountd"[35m --permanent[8d[39m(B[mfirewall-cmd(B[0;1m[35m --reload[10d[39m(B[msystemctl enable nfs(B[0;1m[35m --now[12d[34mmkdir[35m -p[39m(B[m /srv/share/upload[13d(B[0;1m[34mchown[35m -R[39m(B[m nfsnobody[32m:[39m(B[mnfsnobody /srv/share[14d(B[0;1m[34mchmod[39m(B[m 0777 /srv/share/upload[16d(B[0;1m[34mcat[39m(B[m [32m<<[39m(B[m EOF [32m>[39m(B[m /etc/exports[17d/srv/share 192.168.50.11/32[32m([39m(B[mrw,sync,root_squash[32m)[18d[39m(B[mEOF[20dexportfs(B[0;1m[35m -r[39m(B[m[?12l[?25h[?25l[53d(B[0;7mSave modified buffer?                                                                                [54;1H Y(B[m Yes[K[55d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[53;23H[?12l[?25h[?25l[54d(B[0;7m^G(B[m Help[54;26H(B[0;7mM-D(B[m DOS Format[54;51H(B[0;7mM-A(B[m Append[54;76H(B[0;7mM-B(B[m Backup File[55d(B[0;7m^C(B[m Cancel[17G         (B[0;7mM-M(B[m Mac Format[55;51H(B[0;7mM-P(B[m Prepend[55;76H(B[0;7m^T(B[m Browse[53d(B[0;7mFile Name to Write: /home/antonioz31/antz31/5/nfss_script.sh(B[m[?12l[?25h[?25l[53;43H[1K (B[0;7m[ Writing... ](B[m[K[1;75H(B[0;7m [100G(B[m[53;42H(B[0;7m[ Wrote 19 lines ](B[m[J[55d[?12l[?25h[55;1H[?1049l[23;0;0t[?1l>[?2004l[?1001s[?1002h[?1006h[?2004h]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>[?1049h[22;0;0t[1;55r[4l[?1h=(B[m[39m[49m[1;55r[H[2J[1;1H[30m[46m  Left     File     Command     Options     Right[K
+[37m[44m┌<─[30m[47m ~/antz31/5 [37m[44m─────────────────────────────.[^]>┐┌<─ ~/antz31/5 ──────────────────────────────.[^]>┐[3;1H│[93m.n          Name           [37m│[93m Size  [37m│[93mModify time [37m││[93m.n          Name            [37m│[93m Size  [37m│[93mModify time [37m│[4;1H│[97m/..                        [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m││[97m/..                         [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m│[5;1H│[97m/.vagrant                  [37m│[97m   4096[37m│[97mиюл 27 14:38[37m││[97m/.vagrant                   [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│[6;1H│ README.md                 │      0│июл 27 14:31││ README.md                  │      0│июл 27 14:31│[7;1H│ Vagrantfile               │    640│июл 27 22:46││ Vagrantfile                │    640│июл 27 22:46│[8;1H│[30m[46m nfss_script.sh            │    414│июл 27 22:47[37m[44m││[36m nfss_script.sh             [37m│[36m    414[37m│[36mиюл 27 22:47[37m│[9;1H│ script.log                │  37402│июл 27 15:07││ script.log                 │  37402│июл 27 15:07│[10;1H│ script2.log               │ 131072│июл 27 22:47││ script2.log                │ 131072│июл 27 22:47│[11;1H│ time.log                  │   7629│июл 27 15:07││ time.log                   │   7629│июл 27 15:07│[12;1H│ time2.log                 │  24576│июл 27 22:46││ time2.log                  │  24576│июл 27 22:46│[13;1H│                           │       │            ││                            │       │            │[14;1H│                           │       │            ││                            │       │            │[15;1H│                           │       │            ││                            │       │            │[16;1H│                           │       │            ││                            │       │            │[17;1H│                           │       │            ││                            │       │            │[18;1H│                           │       │            ││                            │       │            │[19;1H│                           │       │            ││                            │       │            │[20;1H│                           │       │            ││                            │       │            │[21;1H│                           │       │            ││                            │       │            │[22;1H│                           │       │            ││                            │       │            │[23;1H│                           │       │            ││                            │       │            │[24;1H│                           │       │            ││                            │       │            │[25;1H│                           │       │            ││                            │       │            │[26;1H│                           │       │            ││                            │       │            │[27;1H│                           │       │            ││                            │       │            │[28;1H│                           │       │            ││                            │       │            │[29;1H│                           │       │            ││                            │       │            │[30;1H│                           │       │            ││                            │       │            │[31;1H│                           │       │            ││                            │       │            │[32;1H│                           │       │            ││                            │       │            │[33;1H│                           │       │            ││                            │       │            │[34;1H│                           │       │            ││                            │       │            │[35;1H│                           │       │            ││                            │       │            │[36;1H│                           │       │            ││                            │       │            │[37;1H│                           │       │            ││                            │       │            │[38;1H│                           │       │            ││                            │       │            │[39;1H│                           │       │            ││                            │       │            │[40;1H│                           │       │            ││                            │       │            │[41;1H│                           │       │            ││                            │       │            │[42;1H│                           │       │            ││                            │       │            │[43;1H│                           │       │            ││                            │       │            │[44;1H│                           │       │            ││                            │       │            │[45;1H│                           │       │            ││                            │       │            │[46;1H│                           │       │            ││                            │       │            │[47;1H│                           │       │            ││                            │       │            │[48;1H│                           │       │            ││                            │       │            │[49;1H│                           │       │            ││                            │       │            │[50;1H├────────────────────────────────────────────────┤├─────────────────────────────────────────────────┤[51;1H│ nfss_script.sh                                 ││UP--DIR                                          │[52;1H└─────────────────────────────── 21G/118G (17%) ─┘└──────────────────────────────── 21G/118G (17%) ─┘[53;1H[39m[49mHint: Want your plain shell? Press C-o, and get back to MC with C-o again.
+antonioz31@antonioz31-N751JK:~/antz31/5$[58C[37m[44m[^][55;1H[97m[40m 1[30m[46mHelp    [97m[40m 2[30m[46mMenu    [97m[40m 3[30m[46mView    [97m[40m 4[30m[46mEdit    [97m[40m 5[30m[46mCopy    [97m[40m 6[30m[46mRenMov  [97m[40m 7[30m[46mMkdir   [97m[40m 8[30m[46mDelete  [97m[40m 9[30m[46mPullDn  [97m[40m10[30m[46mQuit[K[2;101H[10;33H[37m[44m9264[54;42H[1;1H[39m[49m[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;101H[?2004l[?1006l[?1002l[?1001r[?1l>[55;1H(B[m[39;49m[K[?1049l[23;0;0t[39;49m
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ mctouch nfss_script.sh[1P_script.shc_script.sh
+[?2004l[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ mc
+[?2004l[?1049h[22;0;0t[1;55r[4l[55;1H(B[m[37m[40m(B[m[39;49m[K[?1049l[23;0;0t[?1001s[?1002h[?1006h[?2004h[?1049h[22;0;0t[1;55r[4l[?1h=[?1h=(B[m[39m[49m[1;55r[H[2J[1;1H[2;100H[1K [37m[44m┐[2;101H]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>┌<─[30m[47m ~/antz31/5 [37m[44m─────────────────────────────.[^]>┐[50C
+│[93m.n          Name           [37m│[93m Size  [37m│[93mModify time [37m│
+│[30m[46m/..                        │UP--DIR│июл 27 14:24[37m[44m│
+│[97m/.vagrant                  [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│
+│ README.md                 │      0│июл 27 14:31│
+│ Vagrantfile               │    640│июл 27 22:46│
+│[36m nfsc_script.sh            [37m│[36m      0[37m│[36mиюл 27 22:47[37m│
+│[36m nfss_script.sh            [37m│[36m    414[37m│[36mиюл 27 22:47[37m│
+│ script.log                │  37402│июл 27 15:07│
+│ script2.log               │ 139264│июл 27 22:47│
+│ time.log                  │   7629│июл 27 15:07│
+│ time2.log                 │  24576│июл 27 22:46│
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+│                           │       │            │
+├────────────────────────────────────────────────┤
+│UP--DIR                                         │
+└─────────────────────────────── 21G/118G (17%) ─┘
+[39m[49mHint: Want your plain shell? Press C-o, and get back to MC with C-o again.
+
+[97m[40m 1[30m[46mHelp    [97m[40m 2[30m[46mMenu    [97m[40m 3[30m[46mView    [97m[40m 4[30m[46mEdit    [97m[40m 5[30m[46mCopy    [97m[40m 6[30m[46mRenMov  [97m[40m 7[30m[46mMkdir   [97m[40m 8[30m[46mDelete  [97m[40m 9[30m[46mPullDn  [97m[40m10[30m[46mQuit[K[53;101H]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>[1;1H  Left     File     Command     Options     Right[K[2;51H[37m[44m┌<─ ~/antz31/5 ──────────────────────────────.[^]>[3;51H│[93m.n          Name            [37m│[93m Size  [37m│[93mModify time [37m│[4;51H│[97m/..                         [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m│[5;51H│[97m/.vagrant                   [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│[6;51H│ README.md                  │      0│июл 27 14:31│[7;51H│ Vagrantfile                │    640│июл 27 22:46│[8;51H│[36m nfsc_script.sh             [37m│[36m      0[37m│[36mиюл 27 22:47[37m│[9;51H│[36m nfss_script.sh             [37m│[36m    414[37m│[36mиюл 27 22:47[37m│[10;51H│ script.log                 │  37402│июл 27 15:07│[11;51H│ script2.log                │ 139264│июл 27 22:47│[12;51H│ time.log                   │   7629│июл 27 15:07│[13;51H│ time2.log                  │  24576│июл 27 22:46│[14;51H│                            │       │            │[15;51H│                            │       │            │[16;51H│                            │       │            │[17;51H│                            │       │            │[18;51H│                            │       │            │[19;51H│                            │       │            │[20;51H│                            │       │            │[21;51H│                            │       │            │[22;51H│                            │       │            │[23;51H│                            │       │            │[24;51H│                            │       │            │[25;51H│                            │       │            │[26;51H│                            │       │            │[27;51H│                            │       │            │[28;51H│                            │       │            │[29;51H│                            │       │            │[30;51H│                            │       │            │[31;51H│                            │       │            │[32;51H│                            │       │            │[33;51H│                            │       │            │[34;51H│                            │       │            │[35;51H│                            │       │            │[36;51H│                            │       │            │[37;51H│                            │       │            │[38;51H│                            │       │            │[39;51H│                            │       │            │[40;51H│                            │       │            │[41;51H│                            │       │            │[42;51H│                            │       │            │[43;51H│                            │       │            │[44;51H│                            │       │            │[45;51H│                            │       │            │[46;51H│                            │       │            │[47;51H│                            │       │            │[48;51H│                            │       │            │[49;51H│                            │       │            │[50;51H├─────────────────────────────────────────────────┤[51;51H│UP--DIR                                          │[52;51H└──────────────────────────────── 21G/118G (17%) ─┘[54;1H[39m[49mantonioz31@antonioz31-N751JK:~$[67C[37m[44m[^][54;33H[54;31H[39m[49m/antz31/5$[58C[54;42H[4;2H[97m[44m/..                        [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[8;2H[30m[46m nfsc_script.sh            │      0│июл 27 22:47[51;2H[37m[44m nfsc_script.sh[54;42H[1;1H[39m[49m[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;101H[?1006l[?1002l[?1001r[?2004l[?1l>[55;1H(B[m[39;49m[K[?1049l[23;0;0t>[?2004h[?1049h[22;0;0t[1;55r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[53;44H(B[0;7m[ Reading... ](B[m[53;43H(B[0;7m[ Read 0 lines ](B[m[H(B[0;7m  GNU nano 6.2                   /home/antonioz31/antz31/5/nfsc_script.sh                            [1;100H(B[m[54d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[54;57H(B[0;7m^T(B[m Execute    (B[0;7m^C(B[m Location   (B[0;7mM-U(B[m Undo[55d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify    (B[0;7m^/(B[m Go To Line (B[0;7mM-E(B[m Redo[2d[?12l[?25h[?25l[1;75H(B[0;7m*[53d(B[m[K[1;100H[2d[36m#!/usr/bin/env bash[4d[39m(B[myum (B[0;1m[34minstall[35m -y[39m(B[m nfs-utils[6dsystemctl enable firewalld(B[0;1m[35m --now[7d[39m(B[msystemctl status firewalld[9d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"192.168.50.10:/srv/share/ /mnt nfs vers=3,proto=udp,noauto,x-systemd.automount 0 0"[39m(B[m [32m>>[39m(B[m /etc/fs(B[0;7m>[11;1H(B[msystemctl daemon-reload[12dsystemctl restart remote-fs.target[?12l[?25h[?25l[53d(B[0;7mSave modified buffer?                                                                                [54;1H Y(B[m Yes[K[55d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[53;23H[?12l[?25h[?25l[54d(B[0;7m^G(B[m Help[54;26H(B[0;7mM-D(B[m DOS Format[54;51H(B[0;7mM-A(B[m Append[54;76H(B[0;7mM-B(B[m Backup File[55d(B[0;7m^C(B[m Cancel[17G         (B[0;7mM-M(B[m Mac Format[55;51H(B[0;7mM-P(B[m Prepend[55;76H(B[0;7m^T(B[m Browse[53d(B[0;7mFile Name to Write: /home/antonioz31/antz31/5/nfsc_script.sh(B[m[?12l[?25h[?25l[53;43H[1K (B[0;7m[ Writing... ](B[m[K[1;75H(B[0;7m [100G(B[m[53;42H(B[0;7m[ Wrote 11 lines ](B[m[J[55d[?12l[?25h[55;1H[?1049l[23;0;0t[?1l>[?2004l[?1001s[?1002h[?1006h[?2004h]0;mc [antonioz31@antonioz31-N751JK]:~/antz31/5>[?1049h[22;0;0t[1;55r[4l[?1h=(B[m[39m[49m[1;55r[H[2J[1;1H[30m[46m  Left     File     Command     Options     Right[K
+[37m[44m┌<─[30m[47m ~/antz31/5 [37m[44m─────────────────────────────.[^]>┐┌<─ ~/antz31/5 ──────────────────────────────.[^]>┐[3;1H│[93m.n          Name           [37m│[93m Size  [37m│[93mModify time [37m││[93m.n          Name            [37m│[93m Size  [37m│[93mModify time [37m│[4;1H│[97m/..                        [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m││[97m/..                         [37m│[97mUP--DIR[37m│[97mиюл 27 14:24[37m│[5;1H│[97m/.vagrant                  [37m│[97m   4096[37m│[97mиюл 27 14:38[37m││[97m/.vagrant                   [37m│[97m   4096[37m│[97mиюл 27 14:38[37m│[6;1H│ README.md                 │      0│июл 27 14:31││ README.md                  │      0│июл 27 14:31│[7;1H│ Vagrantfile               │    640│июл 27 22:46││ Vagrantfile                │    640│июл 27 22:46│[8;1H│[30m[46m nfsc_script.sh            │    272│июл 27 22:48[37m[44m││[36m nfsc_script.sh             [37m│[36m    272[37m│[36mиюл 27 22:48[37m│[9;1H│[36m nfss_script.sh            [37m│[36m    414[37m│[36mиюл 27 22:47[37m││[36m nfss_script.sh             [37m│[36m    414[37m│[36mиюл 27 22:47[37m│[10;1H│ script.log                │  37402│июл 27 15:07││ script.log                 │  37402│июл 27 15:07│[11;1H│ script2.log               │ 151552│июл 27 22:47││ script2.log                │ 151552│июл 27 22:47│[12;1H│ time.log                  │   7629│июл 27 15:07││ time.log                   │   7629│июл 27 15:07│[13;1H│ time2.log                 │  24576│июл 27 22:46││ time2.log                  │  24576│июл 27 22:46│[14;1H│                           │       │            ││                            │       │            │[15;1H│                           │       │            ││                            │       │            │[16;1H│                           │       │            ││                            │       │            │[17;1H│                           │       │            ││                            │       │            │[18;1H│                           │       │            ││                            │       │            │[19;1H│                           │       │            ││                            │       │            │[20;1H│                           │       │            ││                            │       │            │[21;1H│                           │       │            ││                            │       │            │[22;1H│                           │       │            ││                            │       │            │[23;1H│                           │       │            ││                            │       │            │[24;1H│                           │       │            ││                            │       │            │[25;1H│                           │       │            ││                            │       │            │[26;1H│                           │       │            ││                            │       │            │[27;1H│                           │       │            ││                            │       │            │[28;1H│                           │       │            ││                            │       │            │[29;1H│                           │       │            ││                            │       │            │[30;1H│                           │       │            ││                            │       │            │[31;1H│                           │       │            ││                            │       │            │[32;1H│                           │       │            ││                            │       │            │[33;1H│                           │       │            ││                            │       │            │[34;1H│                           │       │            ││                            │       │            │[35;1H│                           │       │            ││                            │       │            │[36;1H│                           │       │            ││                            │       │            │[37;1H│                           │       │            ││                            │       │            │[38;1H│                           │       │            ││                            │       │            │[39;1H│                           │       │            ││                            │       │            │[40;1H│                           │       │            ││                            │       │            │[41;1H│                           │       │            ││                            │       │            │[42;1H│                           │       │            ││                            │       │            │[43;1H│                           │       │            ││                            │       │            │[44;1H│                           │       │            ││                            │       │            │[45;1H│                           │       │            ││                            │       │            │[46;1H│                           │       │            ││                            │       │            │[47;1H│                           │       │            ││                            │       │            │[48;1H│                           │       │            ││                            │       │            │[49;1H│                           │       │            ││                            │       │            │[50;1H├────────────────────────────────────────────────┤├─────────────────────────────────────────────────┤[51;1H│ nfsc_script.sh                                 ││UP--DIR                                          │[52;1H└─────────────────────────────── 21G/118G (17%) ─┘└──────────────────────────────── 21G/118G (17%) ─┘[53;1H[39m[49mHint: Want your plain shell? Press C-o, and get back to MC with C-o again.
+antonioz31@antonioz31-N751JK:~/antz31/5$[58C[37m[44m[^][55;1H[97m[40m 1[30m[46mHelp    [97m[40m 2[30m[46mMenu    [97m[40m 3[30m[46mView    [97m[40m 4[30m[46mEdit    [97m[40m 5[30m[46mCopy    [97m[40m 6[30m[46mRenMov  [97m[40m 7[30m[46mMkdir   [97m[40m 8[30m[46mDelete  [97m[40m 9[30m[46mPullDn  [97m[40m10[30m[46mQuit[K[2;101H[11;33H[37m[44m9744[12C8[54;42H[1;1H[39m[49m[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;101H[?2004l[?1006l[?1002l[?1001r[?1l>[55;1H(B[m[39;49m[K[?1049l[23;0;0t[39;49m
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ mctouch nfsc_script.sh[1P nfsc_script.sh[1P nfsc_script.sh[1P nfsc_script.sh[1P nfsc_script.sh[1P nfsc_script.shc nfsc_script.sha nfsc_script.sht nfsc_script.sh
+[?2004l#!/usr/bin/env bash
+
+yum install -y nfs-utils
+
+systemctl enable firewalld --now
+systemctl status firewalld
+
+echo "192.168.50.10:/srv/share/ /mnt nfs vers=3,proto=udp,noauto,x-systemd.automount 0 0" >> /etc/fstab
+
+systemctl daemon-reload
+systemctl restart remote-fs.target
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ cat nfsc_script.sh[1P_script.shs_script.sh
+[?2004l#!/usr/bin/env bash
+
+yum install -y nfs-utils
+systemctl enable firewalld --now
+
+firewall-cmd --add-service="nfs3" --add-service="rpc-bind" --add-service="mountd" --permanent
+firewall-cmd --reload
+
+systemctl enable nfs --now
+
+mkdir -p /srv/share/upload
+chown -R nfsnobody:nfsnobody /srv/share
+chmod 0777 /srv/share/upload
+
+cat << EOF > /etc/exports
+/srv/share 192.168.50.11/32(rw,sync,root_squash)
+EOF
+
+exportfs -r
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant destroy -f
+[?2004l[1m==> nfsc: Forcing shutdown of VM...[0m
+[1m==> nfsc: Destroying VM and associated drives...[0m
+[1m==> nfss: Forcing shutdown of VM...[0m
+[1m==> nfss: Destroying VM and associated drives...[0m
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ var[Kgrant u[[Kp
+[?2004l[0mBringing machine 'nfss' up with 'virtualbox' provider...[0m
+[0mBringing machine 'nfsc' up with 'virtualbox' provider...[0m
+[1m==> nfss: Importing base box 'centos/7'...[0m
+[0m[K[0m[0mProgress: 20%[0m[0m[K[0m[0mProgress: 40%[0m[0m[K[0m[0mProgress: 70%[0m[0m[K[0m[0mProgress: 90%[0m[0m[K[0m[1m==> nfss: Matching MAC address for NAT networking...[0m
+[1m==> nfss: Checking if box 'centos/7' version '2004.01' is up to date...[0m
+[1;33m==> nfss: There was a problem while downloading the metadata for your box
+==> nfss: to check for updates. This is not an error, since it is usually due
+==> nfss: to temporary network problems. This is just a warning. The problem
+==> nfss: encountered was:
+==> nfss: 
+==> nfss: The requested URL returned error: 404
+==> nfss: 
+==> nfss: If you want to check for box updates, verify your network connection
+==> nfss: is valid and try again.[0m
+[1m==> nfss: Setting the name of the VM: 5_nfss_1690476601751_58268[0m
+[1m==> nfss: Clearing any previously set network interfaces...[0m
+[1m==> nfss: Preparing network interfaces based on configuration...[0m
+[0m    nfss: Adapter 1: nat[0m
+[0m    nfss: Adapter 2: intnet[0m
+[1m==> nfss: Forwarding ports...[0m
+[0m    nfss: 22 (guest) => 2222 (host) (adapter 1)[0m
+[1m==> nfss: Running 'pre-boot' VM customizations...[0m
+[1m==> nfss: Booting VM...[0m
+[1m==> nfss: Waiting for machine to boot. This may take a few minutes...[0m
+[0m    nfss: SSH address: 127.0.0.1:2222[0m
+[0m    nfss: SSH username: vagrant[0m
+[0m    nfss: SSH auth method: private key[0m
+[0m    nfss: 
+    nfss: Vagrant insecure key detected. Vagrant will automatically replace
+    nfss: this with a newly generated keypair for better security.[0m
+[0m    nfss: 
+    nfss: Inserting generated public key within guest...[0m
+[0m    nfss: Removing insecure key from the guest if it's present...[0m
+[0m    nfss: Key inserted! Disconnecting and reconnecting using new SSH key...[0m
+[1m==> nfss: Machine booted and ready![0m
+[1m==> nfss: Checking for guest additions in VM...[0m
+[0m    nfss: No guest additions were detected on the base box for this VM! Guest
+    nfss: additions are required for forwarded ports, shared folders, host only
+    nfss: networking, and more. If SSH fails on this machine, please install
+    nfss: the guest additions and repackage the box to continue.
+    nfss: 
+    nfss: This is not an error message; everything may continue to work properly,
+    nfss: in which case you may ignore this message.[0m
+[1m==> nfss: Setting hostname...[0m
+[1m==> nfss: Configuring and enabling network interfaces...[0m
+[1m==> nfss: Rsyncing folder: /home/antonioz31/antz31/5/ => /vagrant[0m
+[1m==> nfss: Running provisioner: shell...[0m
+[0m    nfss: Running: /tmp/vagrant-shell20230727-64276-vuv6rv.sh[0m
+[0;32m    nfss: Loaded plugins: fastestmirror[0m
+[0;32m    nfss: Determining fastest mirrors[0m
+[0;32m    nfss:  * base: ftp.nsc.ru[0m
+[0;32m    nfss:  * extras: ftp.nsc.ru[0m
+[0;32m    nfss:  * updates: ftp.nsc.ru[0m
+[0;32m    nfss: Resolving Dependencies[0m
+[0;32m    nfss: --> Running transaction check[0m
+[0;32m    nfss: ---> Package nfs-utils.x86_64 1:1.3.0-0.66.el7 will be updated[0m
+[0;32m    nfss: ---> Package nfs-utils.x86_64 1:1.3.0-0.68.el7.2 will be an update[0m
+[0;32m    nfss: --> Finished Dependency Resolution[0m
+[0;32m    nfss: [0m
+[0;32m    nfss: Dependencies Resolved[0m
+[0;32m    nfss: [0m
+[0;32m    nfss: ================================================================================[0m
+[0;32m    nfss:  Package          Arch          Version                    Repository      Size[0m
+[0;32m    nfss: ================================================================================[0m
+[0;32m    nfss: Updating:[0m
+[0;32m    nfss:  nfs-utils        x86_64        1:1.3.0-0.68.el7.2         updates        413 k[0m
+[0;32m    nfss: [0m
+[0;32m    nfss: Transaction Summary[0m
+[0;32m    nfss: ================================================================================[0m
+[0;32m    nfss: Upgrade  1 Package[0m
+[0;32m    nfss: [0m
+[0;32m    nfss: Total download size: 413 k[0m
+[0;32m    nfss: Downloading packages:[0m
+[0;32m    nfss: No Presto metadata available for updates[0m
+[0;32m    nfss: Public key for nfs-utils-1.3.0-0.68.el7.2.x86_64.rpm is not installed[0m
+[0;31m    nfss: warning: /var/cache/yum/x86_64/7/updates/packages/nfs-utils-1.3.0-0.68.el7.2.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY[0m
+[0;32m    nfss: Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7[0m
+[0;31m    nfss: Importing GPG key 0xF4A80EB5:[0m
+[0;31m    nfss:  Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"[0m
+[0;31m    nfss:  Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5[0m
+[0;31m    nfss:  Package    : centos-release-7-8.2003.0.el7.centos.x86_64 (@anaconda)[0m
+[0;31m    nfss:  From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7[0m
+[0;32m    nfss: Running transaction check[0m
+[0;32m    nfss: Running transaction test[0m
+[0;32m    nfss: Transaction test succeeded[0m
+[0;32m    nfss: Running transaction[0m
+[0;32m    nfss:   Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64                          1/2[0m
+[0;32m    nfss:   Cleanup    : 1:nfs-utils-1.3.0-0.66.el7.x86_64                            2/2[0m
+[0;32m    nfss:   Verifying  : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64                          1/2[0m
+[0;32m    nfss:   Verifying  : 1:nfs-utils-1.3.0-0.66.el7.x86_64                            2/2[0m
+[0;32m    nfss: [0m
+[0;32m    nfss: Updated:[0m
+[0;32m    nfss:   nfs-utils.x86_64 1:1.3.0-0.68.el7.2[0m
+[0;32m    nfss: [0m
+[0;32m    nfss: Complete![0m
+[0;31m    nfss: Created symlink from /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service to /usr/lib/systemd/system/firewalld.service.[0m
+[0;31m    nfss: Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.service to /usr/lib/systemd/system/firewalld.service.[0m
+[0;32m    nfss: success[0m
+[0;32m    nfss: success[0m
+[0;31m    nfss: Created symlink from /etc/systemd/system/multi-user.target.wants/nfs-server.service to /usr/lib/systemd/system/nfs-server.service.[0m
+[1m==> nfsc: Importing base box 'centos/7'...[0m
+[0m[K[0m[0mProgress: 20%[0m[0m[K[0m[0mProgress: 40%[0m[0m[K[0m[0mProgress: 70%[0m[0m[K[0m[0mProgress: 90%[0m[0m[K[0m[1m==> nfsc: Matching MAC address for NAT networking...[0m
+[1m==> nfsc: Checking if box 'centos/7' version '2004.01' is up to date...[0m
+[1m==> nfsc: Setting the name of the VM: 5_nfsc_1690476742919_31876[0m
+[1m==> nfsc: Fixed port collision for 22 => 2222. Now on port 2200.[0m
+[1m==> nfsc: Clearing any previously set network interfaces...[0m
+[1m==> nfsc: Preparing network interfaces based on configuration...[0m
+[0m    nfsc: Adapter 1: nat[0m
+[0m    nfsc: Adapter 2: intnet[0m
+[1m==> nfsc: Forwarding ports...[0m
+[0m    nfsc: 22 (guest) => 2200 (host) (adapter 1)[0m
+[1m==> nfsc: Running 'pre-boot' VM customizations...[0m
+[1m==> nfsc: Booting VM...[0m
+[1m==> nfsc: Waiting for machine to boot. This may take a few minutes...[0m
+[0m    nfsc: SSH address: 127.0.0.1:2200[0m
+[0m    nfsc: SSH username: vagrant[0m
+[0m    nfsc: SSH auth method: private key[0m
+[0m    nfsc: 
+    nfsc: Vagrant insecure key detected. Vagrant will automatically replace
+    nfsc: this with a newly generated keypair for better security.[0m
+[0m    nfsc: 
+    nfsc: Inserting generated public key within guest...[0m
+[0m    nfsc: Removing insecure key from the guest if it's present...[0m
+[0m    nfsc: Key inserted! Disconnecting and reconnecting using new SSH key...[0m
+[1m==> nfsc: Machine booted and ready![0m
+[1m==> nfsc: Checking for guest additions in VM...[0m
+[0m    nfsc: No guest additions were detected on the base box for this VM! Guest
+    nfsc: additions are required for forwarded ports, shared folders, host only
+    nfsc: networking, and more. If SSH fails on this machine, please install
+    nfsc: the guest additions and repackage the box to continue.
+    nfsc: 
+    nfsc: This is not an error message; everything may continue to work properly,
+    nfsc: in which case you may ignore this message.[0m
+[1m==> nfsc: Setting hostname...[0m
+[1m==> nfsc: Configuring and enabling network interfaces...[0m
+[1m==> nfsc: Rsyncing folder: /home/antonioz31/antz31/5/ => /vagrant[0m
+[1m==> nfsc: Running provisioner: shell...[0m
+[0m    nfsc: Running: /tmp/vagrant-shell20230727-64276-18b2bd.sh[0m
+[0;32m    nfsc: Loaded plugins: fastestmirror[0m
+[0;32m    nfsc: Determining fastest mirrors[0m
+[0;32m    nfsc:  * base: ftp.nsc.ru[0m
+[0;32m    nfsc:  * extras: ftp.nsc.ru[0m
+[0;32m    nfsc:  * updates: ftp.nsc.ru[0m
+[0;32m    nfsc: Resolving Dependencies[0m
+[0;32m    nfsc: --> Running transaction check[0m
+[0;32m    nfsc: ---> Package nfs-utils.x86_64 1:1.3.0-0.66.el7 will be updated[0m
+[0;32m    nfsc: ---> Package nfs-utils.x86_64 1:1.3.0-0.68.el7.2 will be an update[0m
+[0;32m    nfsc: --> Finished Dependency Resolution[0m
+[0;32m    nfsc: [0m
+[0;32m    nfsc: Dependencies Resolved[0m
+[0;32m    nfsc: [0m
+[0;32m    nfsc: ================================================================================[0m
+[0;32m    nfsc:  Package          Arch          Version                    Repository      Size[0m
+[0;32m    nfsc: ================================================================================[0m
+[0;32m    nfsc: Updating:[0m
+[0;32m    nfsc:  nfs-utils        x86_64        1:1.3.0-0.68.el7.2         updates        413 k[0m
+[0;32m    nfsc: [0m
+[0;32m    nfsc: Transaction Summary[0m
+[0;32m    nfsc: ================================================================================[0m
+[0;32m    nfsc: Upgrade  1 Package[0m
+[0;32m    nfsc: [0m
+[0;32m    nfsc: Total download size: 413 k[0m
+[0;32m    nfsc: Downloading packages:[0m
+[0;32m    nfsc: No Presto metadata available for updates[0m
+[0;32m    nfsc: Public key for nfs-utils-1.3.0-0.68.el7.2.x86_64.rpm is not installed[0m
+[0;31m    nfsc: warning: /var/cache/yum/x86_64/7/updates/packages/nfs-utils-1.3.0-0.68.el7.2.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY[0m
+[0;32m    nfsc: Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7[0m
+[0;31m    nfsc: Importing GPG key 0xF4A80EB5:[0m
+[0;31m    nfsc:  Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"[0m
+[0;31m    nfsc:  Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5[0m
+[0;31m    nfsc:  Package    : centos-release-7-8.2003.0.el7.centos.x86_64 (@anaconda)[0m
+[0;31m    nfsc:  From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7[0m
+[0;32m    nfsc: Running transaction check[0m
+[0;32m    nfsc: Running transaction test[0m
+[0;32m    nfsc: Transaction test succeeded[0m
+[0;32m    nfsc: Running transaction[0m
+[0;32m    nfsc:   Updating   : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64                          1/2[0m
+[0;32m    nfsc:   Cleanup    : 1:nfs-utils-1.3.0-0.66.el7.x86_64                            2/2[0m
+[0;32m    nfsc:   Verifying  : 1:nfs-utils-1.3.0-0.68.el7.2.x86_64                          1/2[0m
+[0;32m    nfsc:   Verifying  : 1:nfs-utils-1.3.0-0.66.el7.x86_64                            2/2[0m
+[0;32m    nfsc: [0m
+[0;32m    nfsc: Updated:[0m
+[0;32m    nfsc:   nfs-utils.x86_64 1:1.3.0-0.68.el7.2[0m
+[0;32m    nfsc: [0m
+[0;32m    nfsc: Complete![0m
+[0;31m    nfsc: Created symlink from /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service to /usr/lib/systemd/system/firewalld.service.[0m
+[0;31m    nfsc: Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.service to /usr/lib/systemd/system/firewalld.service.[0m
+[0;32m    nfsc: ● firewalld.service - firewalld - dynamic firewall daemon[0m
+[0;32m    nfsc:    Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)[0m
+[0;32m    nfsc:    Active: active (running) since Thu 2023-07-27 16:53:20 UTC; 24ms ago[0m
+[0;32m    nfsc:      Docs: man:firewalld(1)[0m
+[0;32m    nfsc:  Main PID: 3401 (firewalld)[0m
+[0;32m    nfsc:    CGroup: /system.slice/firewalld.service[0m
+[0;32m    nfsc:            ├─3401 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid[0m
+[0;32m    nfsc:            └─3403 /usr/sbin/iptables -w -L -n[0m
+[0;32m    nfsc: [0m
+[0;32m    nfsc: Jul 27 16:53:20 nfsc systemd[1]: Starting firewalld - dynamic firewall daemon...[0m
+[0;32m    nfsc: Jul 27 16:53:20 nfsc systemd[1]: Started firewalld - dynamic firewall daemon.[0m
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss
+[?2004l]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ ls -ls[K /srv/share/up;;[K[Kload
+total 0
+]0;vagrant@nfss:~[vagrant@nfss ~]$ ls -l /srv/share/upload[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P /srv/share/uploadc /srv/share/uploadd /srv/share/upload
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls-l[K[K -l
+total 0
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ sudo i[K-i
+]0;root@nfss:~[?1034h[root@nfss ~]# status nfs
+-bash: status: command not found
+]0;root@nfss:~[root@nfss ~]# status nfs[C[1@s[1@y[C[1@s[1@t[1@e[1@m[1@c[1@t[1@l[1@ 
+[1;32m●[0m nfs-server.service - NFS server and services
+   Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: disabled)
+   Active: [1;32mactive (exited)[0m since Thu 2023-07-27 16:52:14 UTC; 3min 2s ago
+  Process: 3575 ExecStartPost=/bin/sh -c if systemctl -q is-active gssproxy; then systemctl reload gssproxy ; fi (code=exited, status=0/SUCCESS)
+  Process: 3559 ExecStart=/usr/sbin/rpc.nfsd $RPCNFSDARGS (code=exited, status=0/SUCCESS)
+  Process: 3558 ExecStartPre=/usr/sbin/exportfs -r (code=exited, status=0/SUCCESS)
+ Main PID: 3559 (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/nfs-server.service
+
+Jul 27 16:52:14 nfss systemd[1]: Starting NFS server and services...
+Jul 27 16:52:14 nfss systemd[1]: Started NFS server and services.
+]0;root@nfss:~[root@nfss ~]# touch check)fi[K[K[K_file
+]0;root@nfss:~[root@nfss ~]# exit
+logout
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss[Kc
+[?2004l]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ cd /mnt/upload
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ ls- [K[K -;[Kl
+total 0
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ sudo -i
+]0;root@nfsc:~[?1034h[root@nfsc ~]# ls- [K[K -l
+total 16
+-rw-------. 1 root root 5570 Apr 30  2020 anaconda-ks.cfg
+-rw-------. 1 root root 5300 Apr 30  2020 original-ks.cfg
+]0;root@nfsc:~[root@nfsc ~]# cd mnt[K[K[K/mnt/upload
+]0;root@nfsc:/mnt/upload[root@nfsc upload]# ls -l
+total 0
+]0;root@nfsc:/mnt/upload[root@nfsc upload]# exit
+logout
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfscs[C
+[?2004lLast login: Thu Jul 27 16:53:56 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ ls[K[Kcd /srv/share/upload/[K
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls -l
+total 0
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ touch check_file
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:57 check_file
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfssc
+[?2004lLast login: Thu Jul 27 16:56:03 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ cd /mnt/upload
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ ls-[K -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:57 check_file
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ touych[K[K[Kch client_file
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ ls -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:57 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:58 client_file
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ reo[Kboot
+[1;31m==== AUTHENTICATING FOR org.freedesktop.login1.reboot ===
+[0mAuthentication is required for rebooting the system.
+Authenticating as: root
+Password: 
+polkit-agent-helper-1: pam_authenticate failed: Authentication failure
+[1;31m==== AUTHENTICATION FAILED ===
+[0mFailed to execute operation: Access denied
+Must be root.
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ sudo -i
+]0;root@nfsc:~[?1034h[root@nfsc ~]# reboot
+Connection to 127.0.0.1 closed by remote host.
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc
+[?2004lLast login: Thu Jul 27 16:58:22 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ sudo -i[1Preboot[1Pls -ltouch client_filels -l[Kcd /mnt/upload
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ cd /mnt/upload[7Psudo -i[1Preboot[1Pls -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:57 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:58 client_file
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc[C[Ks
+[?2004lLast login: Thu Jul 27 16:57:30 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ sudo -i
+]0;root@nfss:~[?1034h[root@nfss ~]# reboot
+Connection to 127.0.0.1 closed by remote host.
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss
+[?2004lLast login: Thu Jul 27 16:59:50 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ ls -l /srv/share/upload
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:57 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:58 client_file
+]0;vagrant@nfss:~[vagrant@nfss ~]$ system [Ks[Kctl status nfs
+[1;32m●[0m nfs-server.service - NFS server and services
+   Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: disabled)
+  Drop-In: /run/systemd/generator/nfs-server.service.d
+           └─order-with-mounts.conf
+   Active: [1;32mactive (exited)[0m since Thu 2023-07-27 17:00:05 UTC; 16s ago
+  Process: 827 ExecStartPost=/bin/sh -c if systemctl -q is-active gssproxy; then systemctl reload gssproxy ; fi (code=exited, status=0/SUCCESS)
+  Process: 804 ExecStart=/usr/sbin/rpc.nfsd $RPCNFSDARGS (code=exited, status=0/SUCCESS)
+  Process: 802 ExecStartPre=/usr/sbin/exportfs -r (code=exited, status=0/SUCCESS)
+ Main PID: 804 (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/nfs-server.service
+]0;vagrant@nfss:~[vagrant@nfss ~]$ systems[Kctl status fr[Kirewl[Kall [Kd
+[1;32m●[0m firewalld.service - firewalld - dynamic firewall daemon
+   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)
+   Active: [1;32mactive (running)[0m since Thu 2023-07-27 17:00:01 UTC; 29s ago
+     Docs: man:firewalld(1)
+ Main PID: 409 (firewalld)
+   CGroup: /system.slice/firewalld.service
+           └─409 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid
+]0;vagrant@nfss:~[vagrant@nfss ~]$ export[K[K[K[K[K[Ksudo -i
+]0;root@nfss:~[?1034h[root@nfss ~]# exportfs -s
+/srv/share  192.168.50.11/32(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash)
+]0;root@nfss:~[root@nfss ~]# showmoint[K[K[Kunt -a 192,[K.168.601.[K[K[K[K50.10
+All mount points on 192.168.50.10:
+192.168.50.11:/srv/share
+]0;root@nfss:~[root@nfss ~]# o[Klogout
+]0;vagrant@nfss:~[vagrant@nfss ~]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfss[Kc
+[?2004lLast login: Thu Jul 27 16:59:23 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ sudo 0[K-i
+]0;root@nfsc:~[?1034h[root@nfsc ~]# reboot
+Connection to 127.0.0.1 closed by remote host.
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc
+[?2004lLast login: Thu Jul 27 17:01:20 2023 from 10.0.2.2
+]0;vagrant@nfsc:~[?1034h[vagrant@nfsc ~]$ showmount -a 192,[K.168.50.10
+All mount points on 192.168.50.10:
+]0;vagrant@nfsc:~[vagrant@nfsc ~]$ mp[Kount _[K| grep mnt
+systemd-1 on /[01;31m[Kmnt[m[K type autofs (rw,relatime,fd=31,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=11021)
+]0;vagrant@nfsc:~[vagrant@nfsc ~]$ cd m[K/mnt/upload
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ cd /mnt/uploadmount | grep mnt
+systemd-1 on /[01;31m[Kmnt[m[K type autofs (rw,relatime,fd=31,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=11021)
+192.168.50.10:/srv/share/ on /[01;31m[Kmnt[m[K type nfs (rw,relatime,vers=3,rsize=32768,wsize=32768,namlen=255,hard,proto=udp,timeo=11,retrans=3,sec=sys,mountaddr=192.168.50.10,mountvers=3,mountport=20048,mountproto=udp,local_lock=none,addr=192.168.50.10)
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ touch fina;[KL[Kl_check
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ ls -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:57 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:58 client_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 17:02 final_check
+]0;vagrant@nfsc:/mnt/upload[vagrant@nfsc upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ vagrant ssh nfsc[Ks
+[?2004lLast login: Thu Jul 27 17:00:06 2023 from 10.0.2.2
+]0;vagrant@nfss:~[?1034h[vagrant@nfss ~]$ cd /srv/share/upload/
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ ls -l
+total 0
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:57 check_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 16:58 client_file
+-rw-rw-r--. 1 vagrant vagrant 0 Jul 27 17:02 final_check
+]0;vagrant@nfss:/srv/share/upload[vagrant@nfss upload]$ exit
+logout
+[?2004hantonioz31@antonioz31-N751JK:~/antz31/5$ exit
+[?2004lexit
+
+Script done on 2023-07-27 23:03:09+06:00 [COMMAND_EXIT_CODE="0"]
