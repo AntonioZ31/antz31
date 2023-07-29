@@ -79,6 +79,6 @@ touch test.sh
 mc
 mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
 lsinitrd -m /boot/initramfs-$(uname -r).img | grep test
-vim /boot/grub2/grub.cfg
+vi /boot/grub2/grub.cfg
 ```
 
