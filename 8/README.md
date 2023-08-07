@@ -95,7 +95,6 @@ y
 SOCKET=/var/run/php-fcgi.sock
 OPTIONS="-u apache -g apache -s $SOCKET -S -M 0600 -C 32 -F 1 /var/run/spawn-fcgi.pid -- /usr/bin/php-cgi"
 ```
-
 Создаём юнит файл со следующим содержимым:
 
 ```
